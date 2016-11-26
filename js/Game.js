@@ -31,16 +31,11 @@ Quantumgator.Game.prototype = {
     this.cameraText = this.add.text(550, 20, "camera", {font:"20px Arial", fill:"#000000"});
     this.cameraText.anchor.set(0.5);
 
-    emitter = this.add.emitter(this.world.centerX, 200, 200);
-    emitter.width = 800;
-    emitter.makeParticles('star');
-    emitter.minParticleSpeed.set(0, 300);
-    emitter.maxParticleSpeed.set(0, 400);
-    emitter.setRotation(0, 0);
-    emitter.setAlpha(0.3, 0.8);
-    emitter.setScale(0.5, 0.5, 1, 1);
-    emitter.gravity = -200;
-    emitter.start(false, 5000, 100);
+    //initilize velocity
+    this.velocity = 250;
+    //create emitter
+    this.emitter = this.createEmitter();
+    //add lanes
 
     this.lanes = this.add.group();
     for (i = 0; i < 5; i++) {
@@ -73,9 +68,13 @@ Quantumgator.Game.prototype = {
     this.downButton.onDown.add(this.playerDown, this);
   },
   update: function() {
-    this.player.body.velocity.x = 300;
+
+    this.passiveHeat();
+    this.player.body.velocity.x = this.velocity;
+
     this.game.camera.x = this.player.body.x;
     this.game.camera.y = this.player.body.y;
+
     if (this.quantumButton.isDown) {
       this.quantum = true;
     } else {
@@ -90,6 +89,24 @@ Quantumgator.Game.prototype = {
    this.square.y = this.player.y+ (Math.abs(Math.sin(this.time.now * 0.001))/0.1);
    this.square.x = this.player.x+0.5;
     },
+
+  createEmitter: function(){
+    emitter = this.add.emitter(this.world.centerX, 200, 200);
+    emitter.width = 800;
+    emitter.makeParticles('star');
+    emitter.minParticleSpeed.set(0, 300);
+    emitter.maxParticleSpeed.set(0, 400);
+    emitter.setRotation(0, 0);
+    emitter.setAlpha(0.3, 0.8);
+    emitter.setScale(0.5, 0.5, 1, 1);
+    emitter.gravity = -200;
+    emitter.start(false, 5000, 100);
+  },
+
+  passiveHeat: function(){
+    this.T += 0.01;
+    this.velocity = 250 + 50*this.T;
+  },
   //detect player collision
   playerHit: function(player, blocklayer) {
 
