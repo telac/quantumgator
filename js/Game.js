@@ -1,4 +1,5 @@
 var Quantumgator = Quantumgator || {};
+var emitter;
 
 Quantumgator.Game = function(){};
 
@@ -17,6 +18,17 @@ Quantumgator.Game.prototype = {
     this.altitudeText.anchor.set(0.5);
     this.quantumText = this.add.text(400, 20, "quantum", {font:"20px Arial", fill:"#000000"});
     this.quantumText.anchor.set(0.5);
+    
+    emitter = this.add.emitter(this.world.centerX, 200, 200);
+    emitter.width = 800;
+    emitter.makeParticles('star');
+    emitter.minParticleSpeed.set(0, 300);
+    emitter.maxParticleSpeed.set(0, 400);
+    emitter.setRotation(0, 0);
+    emitter.setAlpha(0.3, 0.8);
+    emitter.setScale(0.5, 0.5, 1, 1);
+    emitter.gravity = -200;
+    emitter.start(false, 5000, 100);
 
     this.lanes = this.add.group();
     for (i = 0; i < 5; i++) {
@@ -40,7 +52,6 @@ Quantumgator.Game.prototype = {
     this.downButton = this.input.keyboard.addKey(Phaser.KeyCode.DOWN);
     this.upButton.onDown.add(this.playerUp, this);
     this.downButton.onDown.add(this.playerDown, this);
-
   },
   update: function() {
     if (this.quantumButton.isDown) {
@@ -85,5 +96,4 @@ Quantumgator.Game.prototype = {
   changeTemperature: function(num){
   this.T += num;
   }
-
 }

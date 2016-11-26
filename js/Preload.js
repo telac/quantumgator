@@ -20,6 +20,7 @@ Quantumgator.Preload.prototype = {
     this.load.image('hot', 'assets/images/hot.png');
     this.load.image('lane', 'assets/images/lane.png');
     this.load.image('wall', 'assets/images/wall.png');
+    this.load.image('star', 'assets/images/star.png');
   },
   create: function() {
     this.state.start('Game');
