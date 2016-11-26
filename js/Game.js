@@ -75,11 +75,21 @@ Quantumgator.Game.prototype = {
 
     this.player.y = 100 + this.altitude*84;
 
+   
+  this.square.y = ((this.player.y+Math.sin(this.time.now)));
+   this.square.x = this.player.x;
+  
+if(this.quantum == false){
+   var hitwall = this.physics.arcade.collide(this.player, this.blockLayer);
+}
+
+
     this.square.y = ((this.player.y+Math.sin(this.time.now)));
     this.square.x = this.player.x;
 
     this.game.camera.x = this.player.body.x;
     this.game.camera.y = this.player.body.y;
+
     },
 
   createEmitter: function(){
