@@ -18,9 +18,9 @@ Quantumgator.Game.prototype = {
     this.objectsLayer = this.map.createLayer('objectsLayer');
     this.blockLayer.resizeWorld();
     this.blockLayer.position.set(0, 100);
-
     this.background.scale.setTo(this.game.world.bounds.width/this.background.width, 1);
-
+    //create objects
+    this.createCollectables();
     //game.T is the current temperature, keep between [0, 20]
     this.T = 0;
 
@@ -187,8 +187,18 @@ if(this.quantum == false){
 
   },
   //generated collectables to the game view
+  //....tää on iha helvetin paska idea, en oikeesti tiedä mikä saa mut tekemään tän. mut teen kuitenki.
+  //anteeks.
   createCollectables: function() {
-
+    this.collectables = this.add.group();
+    this.collectables.enablebody = true;
+    var cold_objects = this.locateObjects('cold', this.map, 'objectsLayer');
+    var hot_objects = this.locateObjects('hot', this.map, 'objectsLayer');
+    
+    cold_objects.forEach(function(element){
+      this.createNiceSprites(element, this.collectables)
+    }, this);
+    
   },
   //declare game over
   gameOver: function(){
@@ -216,6 +226,26 @@ if(this.quantum == false){
   //changes the temperature in range [0,20]
   changeTemperature: function(num){
   this.T += num;
+},
+//idea behind adding new objects borrowed from this guide:
+//https://software.intel.com/en-us/html5/hub/blogs/how-to-make-a-sidescroller-game-with-html5/
+locateObjects: function(type, lvl, layer) {
+  var objects = new Array();
+  lvl.objects[layer].forEach(function(element){
+    console.log(element);
+    if(element.type === type) {
+      element.y -= lvl.tileHeight;
+      objects.push(element);
+    }
+  });
+  return objects;
+},
+
+createNiceSprites: function(element, group){
+  var sprite = group.create(element.x, element.y, element.sprite);
+  Object.keys(element.type).forEach(function(key){
+      sprite[key] = element.type[key];
+  });
 
 },
 
