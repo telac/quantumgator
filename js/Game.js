@@ -45,12 +45,16 @@ Quantumgator.Game.prototype = {
     this.quantumButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
     this.upButton = this.input.keyboard.addKey(Phaser.KeyCode.UP);
     this.downButton = this.input.keyboard.addKey(Phaser.KeyCode.DOWN);
+    // reset for debug!
+    this.reset = this.input.keyboard.addKey(Phaser.KeyCode.R);
+    this.reset.onDown.add(this.resetPosition, this);
+    
     this.upButton.onDown.add(this.playerUp, this);
     this.downButton.onDown.add(this.playerDown, this);
 
   },
   update: function() {
-    this.player.body.velocity.x = 50;
+    this.player.body.velocity.x = 300;
     if (this.quantumButton.isDown) {
       this.quantum = true;
     } else {
@@ -80,6 +84,12 @@ Quantumgator.Game.prototype = {
   gameOver: function(){
 
   },
+  
+  resetPosition: function () {
+    this.player.y = 50;
+    this.player.x = 100;
+  },
+  
   playerUp: function() {
     this.altitude--;
     if (this.altitude < 0) {
@@ -92,6 +102,7 @@ Quantumgator.Game.prototype = {
       this.altitude = 4;
     }
   },
+  
   //changes the temperature in range [0,20]
   changeTemperature: function(num){
   this.T += num;
