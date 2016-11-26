@@ -75,17 +75,14 @@ Quantumgator.Game.prototype = {
     }
 
     this.player.y = 100 + this.altitude*84;
-<<<<<<< HEAD
     //console.log(Math.sin(this.time.now));
    //this.square.angle = (Math.sin(-this.player.x)*100);
-  this.square.y = ((this.player.y+Math.sin(this.time.now));
+  this.square.y = ((this.player.y+Math.sin(this.time.now)));
    this.square.x = this.player.x;
    //this.square.pivot.y = 75;
    //this.square.rotation =+ 0.5
-=======
     this.square.y = this.player.y+ (Math.abs(Math.sin(this.time.now * 0.001))/0.1);
     this.square.x = this.player.x+0.5;
->>>>>>> 2f107126eb79b0bbb5a77e13be843ef01808031f
     },
 
   createEmitter: function(){
