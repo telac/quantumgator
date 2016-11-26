@@ -23,6 +23,12 @@ Quantumgator.Game.prototype = {
 
     //game.T is the current temperature, keep between [0, 20]
     this.T = 0;
+    this.temperatureText = this.add.text(100, 20, "temperature", {font:"20px Arial", fill:"#000000"});
+    this.temperatureText.anchor.set(0.5);
+    this.altitudeText = this.add.text(250, 20, "altitude", {font:"20px Arial", fill:"#000000"});
+    this.altitudeText.anchor.set(0.5);
+    this.quantumText = this.add.text(400, 20, "quantum", {font:"20px Arial", fill:"#000000"});
+    this.quantumText.anchor.set(0.5);
 
     //initilize velocity
     this.velocity = 250;
@@ -63,6 +69,23 @@ Quantumgator.Game.prototype = {
     this.downButton.onDown.add(this.playerDown, this);
   },
   update: function() {
+  
+  if (this.quantumButton.isDown) {
+    emitter = this.add.emitter(this.world.centerX, 200, 200);
+    emitter.width = 800;
+    emitter.makeParticles('star');
+    emitter.minParticleSpeed.set(0, 300);
+    emitter.maxParticleSpeed.set(0, 400);
+    emitter.setRotation(0, 0);
+    emitter.setAlpha(0.3, 0.8);
+    emitter.setScale(0.5, 0.5, 1, 1);
+    emitter.gravity = -200;
+    emitter.start(false, 5000, 100);
+    } else {
+    	this.quantum = false;
+    
+    }
+    this.player.body.velocity.x = 300;
     this.passiveHeat();
     this.player.body.velocity.x = this.velocity;
 
@@ -152,6 +175,7 @@ if(this.quantum == false){
   //changes the temperature in range [0,20]
   changeTemperature: function(num){
   this.T += num;
+
 },
 
   render: function(){
