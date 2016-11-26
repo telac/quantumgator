@@ -39,6 +39,7 @@ Quantumgator.Game.prototype = {
     this.lanes.forEach(function(item) {
       item.anchor.setTo(0, 0.5);
       item.scale.setTo(worldWidth/item.width, 1);
+      item.alpha = 0.25;
     });
 
     this.player = this.add.sprite(84, 280, 'gator');
@@ -62,7 +63,6 @@ Quantumgator.Game.prototype = {
     this.downButton.onDown.add(this.playerDown, this);
   },
   update: function() {
-
     this.passiveHeat();
     if (this.T > 25) {
       this.gameOver()
