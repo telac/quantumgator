@@ -21,6 +21,7 @@ Quantumgator.Preload.prototype = {
     this.load.image('lane', 'assets/images/placeholderLaneTile.png');
     this.load.image('wall', 'assets/images/wall.png');
     this.load.image('star', 'assets/images/star.png');
+    this.load.image('snowflake', 'assets/images/snowflake.png');
   },
   create: function() {
     this.state.start('Game');

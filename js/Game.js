@@ -28,17 +28,6 @@ Quantumgator.Game.prototype = {
     this.quantumText = this.add.text(400, 20, "quantum", {font:"20px Arial", fill:"#000000"});
     this.quantumText.anchor.set(0.5);
     
-    emitter = this.add.emitter(this.world.centerX, 200, 200);
-    emitter.width = 800;
-    emitter.makeParticles('star');
-    emitter.minParticleSpeed.set(0, 300);
-    emitter.maxParticleSpeed.set(0, 400);
-    emitter.setRotation(0, 0);
-    emitter.setAlpha(0.3, 0.8);
-    emitter.setScale(0.5, 0.5, 1, 1);
-    emitter.gravity = -200;
-    emitter.start(false, 5000, 100);
-
     this.lanes = this.add.group();
     for (i = 0; i < 5; i++) {
       this.lanes.create(0, 100+84*i, 'lane');
@@ -53,7 +42,6 @@ Quantumgator.Game.prototype = {
     this.player.anchor.setTo(0.5, 0.5);
     this.square = this.add.sprite(50,50, 'cold');
     this.game.physics.arcade.enable(this.player);
-
 
     //follow the player
     this.game.camera.follow(this.player);
@@ -74,6 +62,22 @@ Quantumgator.Game.prototype = {
     this.downButton.onDown.add(this.playerDown, this);
   },
   update: function() {
+  
+  if (this.quantumButton.isDown) {
+    emitter = this.add.emitter(this.world.centerX, 200, 200);
+    emitter.width = 800;
+    emitter.makeParticles('star');
+    emitter.minParticleSpeed.set(0, 300);
+    emitter.maxParticleSpeed.set(0, 400);
+    emitter.setRotation(0, 0);
+    emitter.setAlpha(0.3, 0.8);
+    emitter.setScale(0.5, 0.5, 1, 1);
+    emitter.gravity = -200;
+    emitter.start(false, 5000, 100);
+    } else {
+    	this.quantum = false;
+    
+    }
     this.player.body.velocity.x = 300;
     if (this.quantumButton.isDown) {
       this.quantum = true;
@@ -127,5 +131,5 @@ Quantumgator.Game.prototype = {
   //changes the temperature in range [0,20]
   changeTemperature: function(num){
   this.T += num;
-  }
+  } 
 }
