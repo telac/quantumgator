@@ -69,6 +69,7 @@ Quantumgator.Game.prototype = {
   },
   update: function() {
     this.passiveHeat();
+    this.gameOver();
     this.player.body.velocity.x = this.velocity;
     if (this.quantumButton.isDown) {
       this.quantum = true;
@@ -116,7 +117,10 @@ Quantumgator.Game.prototype = {
   },
   //declare game over
   gameOver: function(){
-
+    if (this.T > 25) {
+      this.velocity = 0;
+      this.game.state.start('Game');
+    }
   },
 
   resetPosition: function () {
