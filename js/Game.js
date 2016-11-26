@@ -22,8 +22,7 @@ Quantumgator.Game.prototype = {
     //create objects
     this.createCollectables();
     //game.T is the current temperature, keep between [0, 20]
-    this.T = 0;
-
+    this.T = 2;
     //initilize velocity
     this.velocity = 250;
     //create emitter
