@@ -31,15 +31,15 @@ Quantumgator.Game.prototype = {
 
     //add lanes
     this.lanes = this.add.group();
-    for (i = 0; i < 5; i++) {
-      this.lanes.create(0, 100+84*i, 'lane');
+    for (i = 1; i < 6; i++) {
+      this.lanes.create(0, 84+84*i, 'lane');
     }
 
     var worldWidth = this.game.world.bounds.width;
     this.lanes.forEach(function(item) {
-      item.anchor.setTo(0, 0.5);
+      item.anchor.setTo(0, 1);
       item.scale.setTo(worldWidth/item.width, 1);
-      item.alpha = 0.25;
+      item.alpha = 0;
     });
 
     this.gatorParts = this.add.group();
@@ -86,7 +86,6 @@ Quantumgator.Game.prototype = {
     this.quantum = false;
 
     // keys
-    this.quantumButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
     this.upButton = this.input.keyboard.addKey(Phaser.KeyCode.UP);
     this.downButton = this.input.keyboard.addKey(Phaser.KeyCode.DOWN);
     // reset for debug!
@@ -95,6 +94,8 @@ Quantumgator.Game.prototype = {
 
     this.upButton.onDown.add(this.playerUp, this);
     this.downButton.onDown.add(this.playerDown, this);
+    this.quantumButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
+    // this.lastQuantumState = this.quantum;
   },
   update: function() {
 
@@ -117,13 +118,18 @@ Quantumgator.Game.prototype = {
     this.passiveHeat();
     this.player.body.velocity.x = this.velocity;
 
+    // if (this.quantumButton.isDown && (this.quantum != this.lastQuantumState)) {
+    //   console.log(this.game.now);
+    //   this.quantum = this.lastQuantumState;
+    // }
+
     if (this.quantumButton.isDown) {
       this.quantum = true;
     } else {
       this.quantum = false;
     }
 
-    this.player.y = 100 + this.altitude*84;
+    this.player.y = 84 + this.altitude*84;
     if(this.quantum == false){
        var hitwall = this.physics.arcade.collide(this.player, this.blockLayer);
     }
