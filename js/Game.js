@@ -30,18 +30,9 @@ Quantumgator.Game.prototype = {
     
     //initilize velocity
     this.velocity = 250;
-    
-    emitter = this.add.emitter(this.world.centerX, 200, 200);
-    emitter.width = 800;
-    emitter.makeParticles('star');
-    emitter.minParticleSpeed.set(0, 300);
-    emitter.maxParticleSpeed.set(0, 400);
-    emitter.setRotation(0, 0);
-    emitter.setAlpha(0.3, 0.8);
-    emitter.setScale(0.5, 0.5, 1, 1);
-    emitter.gravity = -200;
-    emitter.start(false, 5000, 100);
-
+    //create emitter
+    this.emitter = this.createEmitter();
+    //add lanes
     this.lanes = this.add.group();
     for (i = 0; i < 5; i++) {
       this.lanes.create(0, 100+84*i, 'lane');
@@ -93,6 +84,19 @@ Quantumgator.Game.prototype = {
    this.square.y = this.player.y+ (Math.abs(Math.sin(this.time.now * 0.001))/0.1);
    this.square.x = this.player.x+0.5;
     },
+    
+  createEmitter: function(){
+    emitter = this.add.emitter(this.world.centerX, 200, 200);
+    emitter.width = 800;
+    emitter.makeParticles('star');
+    emitter.minParticleSpeed.set(0, 300);
+    emitter.maxParticleSpeed.set(0, 400);
+    emitter.setRotation(0, 0);
+    emitter.setAlpha(0.3, 0.8);
+    emitter.setScale(0.5, 0.5, 1, 1);
+    emitter.gravity = -200;
+    emitter.start(false, 5000, 100);
+  },
     
   passiveHeat: function(){
     this.T += 0.01;
