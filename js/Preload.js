@@ -12,7 +12,7 @@ Quantumgator.Preload.prototype = {
     this.load.setPreloadSprite(this.preloadBar);
 
     //load game assets
-    this.load.tilemap('testlevel', 'assets/tilemaps/tilemap.json', null, Phaser.Tilemap.TILED_JSON);
+    this.load.tilemap('testlevel', 'assets/tilemaps/tilemap2.json', null, Phaser.Tilemap.TILED_JSON);
     this.load.image('tiles', 'assets/images/tilemap.png');
     this.load.image('background', 'assets/images/alligator_BG.png');
     this.load.image('gator', 'assets/images/gator.png');
@@ -28,6 +28,8 @@ Quantumgator.Preload.prototype = {
     this.load.image('gatorBackLeg', 'assets/images/gator/backleg_quantum.png');
     this.load.image('gatorTail', 'assets/images/gator/tailpice_quantum.png');
     this.load.image('gatorTailTip', 'assets/images/gator/tailtip_quantum.png');
+    this.load.image('snowflake', 'assets/images/snowflake.png');
+    this.load.image('wallBlackhole', 'assets/images/wall_blackhole.png');
   },
   create: function() {
     this.state.start('Game');

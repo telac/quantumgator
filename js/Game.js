@@ -12,11 +12,12 @@ Quantumgator.Game.prototype = {
     this.background = this.add.sprite(0, 0, 'background');
     this.map = this.game.add.tilemap('testlevel');
     this.map.addTilesetImage('tiles_spreadsheet', 'tiles');
-    this.backgroundlayer = this.map.createLayer('backgroundLayer');
+    //this.backgroundlayer = this.map.createLayer('backgroundLayer');
     this.blockLayer = this.map.createLayer('blockedLayer');
     this.map.setCollisionBetween(1, 100000, true, 'blockedLayer');
     this.objectsLayer = this.map.createLayer('objectsLayer');
-    this.backgroundlayer.resizeWorld();
+    this.blockLayer.resizeWorld();
+    this.blockLayer.position.set(0, 100);
 
     this.background.scale.setTo(this.game.world.bounds.width/this.background.width, 1);
 
@@ -80,8 +81,6 @@ Quantumgator.Game.prototype = {
     this.gatorParts.children[6].scale.setTo(0.5, 0.5);
     this.gatorParts.children[6].anchor.setTo(0.6, 0.3);
 
-    //this.gatorHead = this.add.sprite(this.player.x, this.player.y, 'gatorUpperHead');
-
     //keep between [0, 4]
     this.altitude = 2;
     this.quantum = false;
@@ -98,8 +97,24 @@ Quantumgator.Game.prototype = {
     this.downButton.onDown.add(this.playerDown, this);
   },
   update: function() {
+
+  if (this.quantumButton.isDown) {
+    emitter = this.add.emitter(this.world.centerX, 200, 200);
+    emitter.width = 800;
+    emitter.makeParticles('star');
+    emitter.minParticleSpeed.set(0, 300);
+    emitter.maxParticleSpeed.set(0, 400);
+    emitter.setRotation(0, 0);
+    emitter.setAlpha(0.3, 0.8);
+    emitter.setScale(0.5, 0.5, 1, 1);
+    emitter.gravity = -200;
+    emitter.start(false, 5000, 100);
+    } else {
+    	this.quantum = false;
+
+    }
+    this.player.body.velocity.x = 300;
     this.passiveHeat();
-    this.gameOver();
     this.player.body.velocity.x = this.velocity;
 
     if (this.quantumButton.isDown) {
@@ -114,6 +129,11 @@ Quantumgator.Game.prototype = {
     }
 
     this.gatorAnimation();
+
+if(this.quantum == false){
+   var hitwall = this.physics.arcade.collide(this.player, this.blockLayer);
+   if (hitwall == true) this.gameOver();
+}
 
     this.game.camera.x = this.player.body.x - 150;
     this.game.camera.y = this.player.body.y;
@@ -152,6 +172,10 @@ Quantumgator.Game.prototype = {
 
   passiveHeat: function(){
     this.T += 0.01;
+    if (this.T > 25) {
+      this.velocity = 0;
+      this.gameOver();
+    }
     this.velocity = 250 + 50*this.T;
   },
   //detect player collision
@@ -168,10 +192,8 @@ Quantumgator.Game.prototype = {
   },
   //declare game over
   gameOver: function(){
-    if (this.T > 25) {
-      this.velocity = 0;
-      this.game.state.start('Game');
-    }
+    this.velocity = 0;
+    this.game.state.start('Game');
   },
 
   resetPosition: function () {
@@ -194,6 +216,7 @@ Quantumgator.Game.prototype = {
   //changes the temperature in range [0,20]
   changeTemperature: function(num){
   this.T += num;
+
 },
 
   render: function(){
