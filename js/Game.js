@@ -64,9 +64,6 @@ Quantumgator.Game.prototype = {
   },
   update: function() {
     this.passiveHeat();
-    if (this.T > 25) {
-      this.gameOver()
-    }
     this.player.body.velocity.x = this.velocity;
 
     if (this.quantumButton.isDown) {
@@ -83,7 +80,7 @@ Quantumgator.Game.prototype = {
   
 if(this.quantum == false){
    var hitwall = this.physics.arcade.collide(this.player, this.blockLayer);
-   this.gameOver();
+   if (hitwall == true) this.gameOver();
 }
 
 
@@ -110,6 +107,10 @@ if(this.quantum == false){
 
   passiveHeat: function(){
     this.T += 0.01;
+    if (this.T > 25) {
+      this.velocity = 0;
+      this.gameOver();
+    }
     this.velocity = 250 + 50*this.T;
   },
   //detect player collision
