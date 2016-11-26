@@ -1,4 +1,5 @@
 var Quantumgator = Quantumgator || {};
+var emitter;
 
 Quantumgator.Game = function(){};
 
@@ -30,6 +31,16 @@ Quantumgator.Game.prototype = {
     //initilize velocity
     this.velocity = 250;
     
+    emitter = this.add.emitter(this.world.centerX, 200, 200);
+    emitter.width = 800;
+    emitter.makeParticles('star');
+    emitter.minParticleSpeed.set(0, 300);
+    emitter.maxParticleSpeed.set(0, 400);
+    emitter.setRotation(0, 0);
+    emitter.setAlpha(0.3, 0.8);
+    emitter.setScale(0.5, 0.5, 1, 1);
+    emitter.gravity = -200;
+    emitter.start(false, 5000, 100);
 
     this.lanes = this.add.group();
     for (i = 0; i < 5; i++) {
@@ -64,7 +75,6 @@ Quantumgator.Game.prototype = {
 
     this.upButton.onDown.add(this.playerUp, this);
     this.downButton.onDown.add(this.playerDown, this);
-
   },
   update: function() {
     this.passiveHeat();
@@ -127,5 +137,4 @@ Quantumgator.Game.prototype = {
   changeTemperature: function(num){
   this.T += num;
   }
-
 }
