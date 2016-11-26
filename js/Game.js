@@ -17,7 +17,6 @@ Quantumgator.Game.prototype = {
     this.altitudeText.anchor.set(0.5);
     this.quantumText = this.add.text(400, 20, "quantum", {font:"20px Arial", fill:"#000000"});
     this.quantumText.anchor.set(0.5);
-
     this.lanes = this.add.group();
     for (i = 0; i < 5; i++) {
       this.lanes.create(0, 80+100*i, 'lane');
@@ -29,6 +28,8 @@ Quantumgator.Game.prototype = {
 
     this.player = this.add.sprite(100, 280, 'gator');
     this.player.anchor.setTo(0.5, 0.5);
+    //follow the player
+    this.game.camera.follow(this.player);
 
     //keep between [0, 4]
     this.altitude = 2;
