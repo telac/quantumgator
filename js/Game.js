@@ -4,6 +4,7 @@ Quantumgator.Game = function(){};
 
 Quantumgator.Game.prototype = {
   preload: function() {
+
     this.time.advancedTiming = true;
   },
   create: function() {
@@ -38,6 +39,12 @@ Quantumgator.Game.prototype = {
 
     this.player = this.add.sprite(84, 280, 'gator');
     this.player.anchor.setTo(0.5, 0.5);
+    this.square = this.add.sprite(50,50, 'cold');
+    this.game.physics.arcade.enable(this.player);
+
+
+    //follow the player
+    this.game.camera.follow(this.player);
 
     //keep between [0, 4]
     this.altitude = 2;
@@ -47,11 +54,16 @@ Quantumgator.Game.prototype = {
     this.quantumButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
     this.upButton = this.input.keyboard.addKey(Phaser.KeyCode.UP);
     this.downButton = this.input.keyboard.addKey(Phaser.KeyCode.DOWN);
+    // reset for debug!
+    this.reset = this.input.keyboard.addKey(Phaser.KeyCode.R);
+    this.reset.onDown.add(this.resetPosition, this);
+
     this.upButton.onDown.add(this.playerUp, this);
     this.downButton.onDown.add(this.playerDown, this);
 
   },
   update: function() {
+    this.player.body.velocity.x = 300;
     if (this.quantumButton.isDown) {
       this.quantum = true;
     } else {
@@ -60,8 +72,12 @@ Quantumgator.Game.prototype = {
     this.temperatureText.text = "temperature: " + this.T;
     this.altitudeText.text = "altitude: " + this.altitude;
     this.quantumText.text = "quantum: " + this.quantum;
+
     this.player.y = 100 + this.altitude*84;
-  },
+    //console.log(Math.abs(Math.sin(this.time.now)));
+   this.square.y = this.player.y+ (Math.abs(Math.sin(this.time.now * 0.001))/0.1);
+   this.square.x = this.player.x+0.5;
+    },
   //detect player collision
   playerHit: function(player, blocklayer) {
 
@@ -78,6 +94,12 @@ Quantumgator.Game.prototype = {
   gameOver: function(){
 
   },
+
+  resetPosition: function () {
+    this.player.y = 50;
+    this.player.x = 100;
+  },
+
   playerUp: function() {
     this.altitude--;
     if (this.altitude < 0) {
@@ -90,6 +112,7 @@ Quantumgator.Game.prototype = {
       this.altitude = 4;
     }
   },
+
   //changes the temperature in range [0,20]
   changeTemperature: function(num){
   this.T += num;
