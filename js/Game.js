@@ -75,11 +75,8 @@ Quantumgator.Game.prototype = {
 
     this.player.y = 100 + this.altitude*84;
 
-    //this.square.y = this.player.y+Math.sin(this.time.now);
-    //this.square.x = this.player.x;
-
-    //this.square.y = this.player.y+ (Math.abs(Math.sin(this.time.now * 0.001))/0.1);
-    //this.square.x = this.player.x+0.5;
+    this.square.y = ((this.player.y+Math.sin(this.time.now)));
+    this.square.x = this.player.x;
 
     this.game.camera.x = this.player.body.x;
     this.game.camera.y = this.player.body.y;
