@@ -59,7 +59,7 @@ Quantumgator.Game.prototype = {
     this.player.y = 80 + this.altitude*100;
     //console.log(Math.abs(Math.sin(this.time.now)));
    this.square.y = this.player.y+ (Math.abs(Math.sin(this.time.now * 0.001))/0.1);
-   this.square.x = this.player.x+0.5;
+   this.square.x = this.player.x-0.5;
     },
   //detect player collision
   playerHit: function(player, blocklayer) {
