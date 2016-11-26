@@ -77,7 +77,7 @@ Quantumgator.Game.prototype = {
 
    
   this.square.y = ((this.player.y+Math.sin(this.time.now)));
-   this.square.x = this.player.x;
+   this.square.x = this.player.x-400;
   
 if(this.quantum == false){
    var hitwall = this.physics.arcade.collide(this.player, this.blockLayer);
