@@ -248,8 +248,12 @@ locateObjects: function(type, lvl, layer) {
 
 createNiceSprites: function(element, group){
   var sprite = group.create(element.x, element.y, element.sprite);
-  Object.keys(element.type).forEach(function(key){
-      sprite[key] = element.type[key];
+  Object.keys(element).forEach(function(key){
+      //console.log(element.type);
+      //console.log(element.x);
+      //console.log(element.y);
+      sprite[key] = (element.x, element.y, element.name);
+      console.log(sprite);
   });
 
 },
