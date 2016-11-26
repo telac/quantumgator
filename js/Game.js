@@ -31,6 +31,8 @@ Quantumgator.Game.prototype = {
     this.player = this.add.sprite(100, 280, 'gator');
     this.player.anchor.setTo(0.5, 0.5);
     this.square = this.add.sprite(50,50, 'cold');
+    this.game.physics.arcade.enable(this.player);
+
     
     //follow the player
     this.game.camera.follow(this.player);
@@ -48,6 +50,7 @@ Quantumgator.Game.prototype = {
 
   },
   update: function() {
+    this.player.body.velocity.x = 50;
     if (this.quantumButton.isDown) {
       this.quantum = true;
     } else {
