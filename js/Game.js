@@ -4,6 +4,7 @@ Quantumgator.Game = function(){};
 
 Quantumgator.Game.prototype = {
   preload: function() {
+   
     this.time.advancedTiming = true;
   },
   create: function() {
@@ -18,6 +19,7 @@ Quantumgator.Game.prototype = {
     this.quantumText = this.add.text(400, 20, "quantum", {font:"20px Arial", fill:"#000000"});
     this.quantumText.anchor.set(0.5);
 
+   
     this.lanes = this.add.group();
     for (i = 0; i < 5; i++) {
       this.lanes.create(0, 80+100*i, 'lane');
@@ -29,7 +31,8 @@ Quantumgator.Game.prototype = {
 
     this.player = this.add.sprite(100, 280, 'gator');
     this.player.anchor.setTo(0.5, 0.5);
-
+    this.square = this.add.sprite(50,50, 'cold');
+    
     //keep between [0, 4]
     this.altitude = 2;
     this.quantum = false;
@@ -52,7 +55,10 @@ Quantumgator.Game.prototype = {
     this.altitudeText.text = "altitude: " + this.altitude;
     this.quantumText.text = "quantum: " + this.quantum;
     this.player.y = 80 + this.altitude*100;
-  },
+    //console.log(Math.abs(Math.sin(this.time.now)));
+   this.square.y = this.player.y+ (Math.abs(Math.sin(this.time.now * 0.001))/0.1);
+   this.square.x = this.player.x+0.5;
+    },
   //detect player collision
   playerHit: function(player, blocklayer) {
 
