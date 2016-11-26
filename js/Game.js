@@ -18,6 +18,7 @@ Quantumgator.Game.prototype = {
     this.blockLayer = this.map.createLayer('blockedLayer');
     this.map.setCollisionBetween(1, 100000, true, 'blockedLayer');
     this.objectsLayer = this.map.createLayer('objectsLayer');
+    this.backgroundlayer.resizeWorld();
 
     //game.T is the current temperature, keep between [0, 20]
     this.T = 0;
@@ -27,7 +28,9 @@ Quantumgator.Game.prototype = {
     this.altitudeText.anchor.set(0.5);
     this.quantumText = this.add.text(400, 20, "quantum", {font:"20px Arial", fill:"#000000"});
     this.quantumText.anchor.set(0.5);
-    
+    this.cameraText = this.add.text(550, 20, "camera", {font:"20px Arial", fill:"#000000"});
+    this.cameraText.anchor.set(0.5);
+
     emitter = this.add.emitter(this.world.centerX, 200, 200);
     emitter.width = 800;
     emitter.makeParticles('star');
@@ -54,10 +57,6 @@ Quantumgator.Game.prototype = {
     this.square = this.add.sprite(50,50, 'cold');
     this.game.physics.arcade.enable(this.player);
 
-
-    //follow the player
-    this.game.camera.follow(this.player);
-
     //keep between [0, 4]
     this.altitude = 2;
     this.quantum = false;
@@ -75,6 +74,8 @@ Quantumgator.Game.prototype = {
   },
   update: function() {
     this.player.body.velocity.x = 300;
+    this.game.camera.x = this.player.body.x;
+    this.game.camera.y = this.player.body.y;
     if (this.quantumButton.isDown) {
       this.quantum = true;
     } else {
@@ -83,9 +84,9 @@ Quantumgator.Game.prototype = {
     this.temperatureText.text = "temperature: " + this.T;
     this.altitudeText.text = "altitude: " + this.altitude;
     this.quantumText.text = "quantum: " + this.quantum;
+    this.cameraText.text = "x: " + this.game.camera.x + " y: " + this.game.camera.y;
 
     this.player.y = 100 + this.altitude*84;
-    //console.log(Math.abs(Math.sin(this.time.now)));
    this.square.y = this.player.y+ (Math.abs(Math.sin(this.time.now * 0.001))/0.1);
    this.square.x = this.player.x+0.5;
     },
@@ -127,5 +128,9 @@ Quantumgator.Game.prototype = {
   //changes the temperature in range [0,20]
   changeTemperature: function(num){
   this.T += num;
+},
+
+  render: function(){
+    this.game.debug.cameraInfo(this.game.camera, 32, 32);
   }
 }
