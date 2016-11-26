@@ -14,7 +14,7 @@ Quantumgator.Preload.prototype = {
     //load game assets
     this.load.tilemap('testlevel', 'assets/tilemaps/tilemap.json', null, Phaser.Tilemap.TILED_JSON);
     this.load.image('tiles', 'assets/images/tilemap.png');
-    this.load.image('background', 'assets/images/background.png');
+    this.load.image('background', 'assets/images/alligator_BG.png');
     this.load.image('gator', 'assets/images/gator.png');
     this.load.image('cold', 'assets/images/cold.png');
     this.load.image('hot', 'assets/images/hot.png');

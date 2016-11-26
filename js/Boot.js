@@ -12,6 +12,7 @@ Quantumgator.Boot.prototype = {
     this.game.stage.backgroundColor = '#fff';
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
+    //this.game.physics.startSystem(Phaser.Physics.P2JS);
 
     this.state.start('Preload');
   }
