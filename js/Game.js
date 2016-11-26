@@ -9,8 +9,7 @@ Quantumgator.Game.prototype = {
     this.time.advancedTiming = true;
   },
   create: function() {
-    this.background = this.add.sprite(this.world.centerX, this.world.centerY, 'background');
-    this.background.anchor.setTo(0.5, 0.5);
+    this.background = this.add.sprite(0, 0, 'background');
 
     this.map = this.game.add.tilemap('testlevel');
     this.map.addTilesetImage('tiles_spreadsheet', 'tiles');
@@ -20,31 +19,26 @@ Quantumgator.Game.prototype = {
     this.objectsLayer = this.map.createLayer('objectsLayer');
     this.backgroundlayer.resizeWorld();
 
+    this.background.scale.setTo(this.game.world.bounds.width/this.background.width, 1);
+
     //game.T is the current temperature, keep between [0, 20]
     this.T = 0;
-    this.temperatureText = this.add.text(100, 20, "temperature", {font:"20px Arial", fill:"#000000"});
-    this.temperatureText.anchor.set(0.5);
-    this.altitudeText = this.add.text(250, 20, "altitude", {font:"20px Arial", fill:"#000000"});
-    this.altitudeText.anchor.set(0.5);
-    this.quantumText = this.add.text(400, 20, "quantum", {font:"20px Arial", fill:"#000000"});
-    this.quantumText.anchor.set(0.5);
-    this.cameraText = this.add.text(550, 20, "camera", {font:"20px Arial", fill:"#000000"});
-    this.cameraText.anchor.set(0.5);
 
     //initilize velocity
     this.velocity = 250;
     //create emitter
     this.emitter = this.createEmitter();
-    //add lanes
 
+    //add lanes
     this.lanes = this.add.group();
     for (i = 0; i < 5; i++) {
       this.lanes.create(0, 100+84*i, 'lane');
     }
 
+    var worldWidth = this.game.world.bounds.width;
     this.lanes.forEach(function(item) {
       item.anchor.setTo(0, 0.5);
-      item.scale.setTo(window.innerWidth/item.width, 1);
+      item.scale.setTo(worldWidth/item.width, 1);
     });
 
     this.player = this.add.sprite(84, 280, 'gator');
@@ -73,22 +67,19 @@ Quantumgator.Game.prototype = {
     this.gameOver();
     this.player.body.velocity.x = this.velocity;
 
-    this.game.camera.x = this.player.body.x;
-    this.game.camera.y = this.player.body.y;
-
     if (this.quantumButton.isDown) {
       this.quantum = true;
     } else {
       this.quantum = false;
     }
-    this.temperatureText.text = "temperature: " + this.T;
-    this.altitudeText.text = "altitude: " + this.altitude;
-    this.quantumText.text = "quantum: " + this.quantum;
-    this.cameraText.text = "x: " + this.game.camera.x + " y: " + this.game.camera.y;
 
     this.player.y = 100 + this.altitude*84;
-   this.square.y = this.player.y+ (Math.abs(Math.sin(this.time.now * 0.001))/0.1);
-   this.square.x = this.player.x+0.5;
+
+    this.square.y = ((this.player.y+Math.sin(this.time.now)));
+    this.square.x = this.player.x;
+
+    this.game.camera.x = this.player.body.x;
+    this.game.camera.y = this.player.body.y;
     },
 
   createEmitter: function(){
@@ -153,5 +144,9 @@ Quantumgator.Game.prototype = {
 
   render: function(){
     this.game.debug.cameraInfo(this.game.camera, 32, 32);
+    this.game.debug.text("temperature: " + this.T, 400, 20);
+    this.game.debug.text("altitude: " + this.altitude, 400, 30);
+    this.game.debug.text("quantum: " + this.quantum, 400, 40);
+    this.game.debug.text("x: " + this.game.camera.x + " y: " + this.game.camera.y, 400, 50);
   }
 }
