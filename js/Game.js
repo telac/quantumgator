@@ -63,7 +63,7 @@ Quantumgator.Game.prototype = {
 
   },
   update: function() {
-    this.player.body.velocity.x = 3;
+    this.player.body.velocity.x = 300;
     if (this.quantumButton.isDown) {
       this.quantum = true;
     } else {
@@ -74,10 +74,12 @@ Quantumgator.Game.prototype = {
     this.quantumText.text = "quantum: " + this.quantum;
 
     this.player.y = 100 + this.altitude*84;
-    //console.log(Math.abs(Math.sin(this.time.now)));
-   this.square.angle = (Math.sin(this.player.x)) *40;
-   this.square.x = this.player.x-100;
-   this.square.y = this.player.y;
+    //console.log(Math.sin(this.time.now));
+   //this.square.angle = (Math.sin(-this.player.x)*100);
+  this.square.y = ((this.player.y+Math.sin(this.time.now));
+   this.square.x = this.player.x;
+   //this.square.pivot.y = 75;
+   //this.square.rotation =+ 0.5
     },
   //detect player collision
   playerHit: function(player, blocklayer) {
