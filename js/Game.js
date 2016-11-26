@@ -10,7 +10,6 @@ Quantumgator.Game.prototype = {
   },
   create: function() {
     this.background = this.add.sprite(0, 0, 'background');
-
     this.map = this.game.add.tilemap('testlevel');
     this.map.addTilesetImage('tiles_spreadsheet', 'tiles');
     this.backgroundlayer = this.map.createLayer('backgroundLayer');
@@ -42,10 +41,46 @@ Quantumgator.Game.prototype = {
       item.alpha = 0.25;
     });
 
-    this.player = this.add.sprite(84, 280, 'gator');
+    this.gatorParts = this.add.group();
+    this.player = this.add.sprite(-200, 280, 'gatorUpperHead');
+    this.player.scale.setTo(0.5, 0.5);
     this.player.anchor.setTo(0.5, 0.5);
-    this.square = this.add.sprite(50,50, 'cold');
     this.game.physics.arcade.enable(this.player);
+
+    this.gatorParts.create(-125, 0, 'gatorTailTip');
+    this.gatorParts.create(-100, 0, 'gatorTail');
+    this.gatorParts.create(-75, 0, 'gatorTail');
+    this.gatorParts.create(-20, 0, 'gatorBody');
+    this.gatorParts.create(8, 0, 'gatorLowerHead');
+    this.gatorParts.create(-5, 0, 'gatorFrontLeg');
+    this.gatorParts.create(-55, 0, 'gatorBackLeg');
+
+    //tailtip
+    this.gatorParts.children[0].scale.setTo(0.5, 0.3);
+
+    //backtail
+    this.gatorParts.children[1].scale.setTo(0.5, 0.4);
+
+    //fronttail
+    this.gatorParts.children[2].scale.setTo(0.5, 0.5);
+
+    //body
+    this.gatorParts.children[3].scale.setTo(0.5, 0.5);
+    this.gatorParts.children[3].anchor.setTo(0.5, 0.5);
+
+    //jaw
+    this.gatorParts.children[4].scale.setTo(0.5, 0.5);
+    this.gatorParts.children[4].anchor.setTo(0.1, 0.5);
+
+    //frontleg
+    this.gatorParts.children[5].scale.setTo(0.5, 0.5);
+    this.gatorParts.children[5].anchor.setTo(0.75, 0.2);
+
+    //backleg
+    this.gatorParts.children[6].scale.setTo(0.5, 0.5);
+    this.gatorParts.children[6].anchor.setTo(0.6, 0.3);
+
+    //this.gatorHead = this.add.sprite(this.player.x, this.player.y, 'gatorUpperHead');
 
     //keep between [0, 4]
     this.altitude = 2;
@@ -74,23 +109,33 @@ Quantumgator.Game.prototype = {
     }
 
     this.player.y = 100 + this.altitude*84;
+    if(this.quantum == false){
+       var hitwall = this.physics.arcade.collide(this.player, this.blockLayer);
+    }
 
-   
-  this.square.y = ((this.player.y+Math.sin(this.time.now)));
-   this.square.x = this.player.x;
-  
-if(this.quantum == false){
-   var hitwall = this.physics.arcade.collide(this.player, this.blockLayer);
-}
+    this.gatorAnimation();
 
-
-    this.square.y = ((this.player.y+Math.sin(this.time.now)));
-    this.square.x = this.player.x;
-
-    this.game.camera.x = this.player.body.x;
+    this.game.camera.x = this.player.body.x - 150;
     this.game.camera.y = this.player.body.y;
-
     },
+
+  gatorAnimation: function(){
+    freq = 100;
+    this.player.y = 100 + this.altitude*84 + 4 * Math.sin(this.time.now/freq);
+    this.gatorParts.x = this.player.body.x;
+    this.gatorParts.y = this.player.body.y - 4 * Math.sin(this.time.now/freq);
+    this.gatorParts.children[4].y = 20 + 4 * Math.sin(this.time.now/freq);
+    this.gatorParts.children[4].angle = 8 * Math.sin(this.time.now/100) + 15;
+    this.gatorParts.children[3].y = 20 + 4 * Math.sin((this.time.now-freq)/freq);
+
+    this.gatorParts.children[2].y = 5 + 5 * Math.sin((this.time.now-2*freq)/freq);
+    this.gatorParts.children[1].y = 10 + 6 * Math.sin((this.time.now-3*freq)/freq);
+    this.gatorParts.children[0].y = 15 + 7 * Math.sin((this.time.now-4*freq)/freq);
+    this.gatorParts.children[5].y = 30 + 4 * Math.sin((this.time.now-freq)/freq);
+    this.gatorParts.children[6].y = 30 + 4 * Math.sin((this.time.now-freq)/freq);
+    this.gatorParts.children[5].angle = 8 * Math.sin(this.time.now/100);
+    this.gatorParts.children[6].angle = 10 * Math.sin(this.time.now/100);
+  },
 
   createEmitter: function(){
     emitter = this.add.emitter(this.world.centerX, 200, 200);
@@ -130,8 +175,7 @@ if(this.quantum == false){
   },
 
   resetPosition: function () {
-    this.player.y = 50;
-    this.player.x = 100;
+    this.player.x = -200;
   },
 
   playerUp: function() {
