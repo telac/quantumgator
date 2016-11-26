@@ -136,13 +136,6 @@ Quantumgator.Game.prototype = {
 
     this.gatorAnimation();
 
-
- // this.square.y = ((this.player.y+Math.sin(this.time.now)));
-   //this.square.x = this.player.x-400;
-
-   this.square.y = ((this.player.y+Math.sin(this.time.now)));
-   this.square.x = this.player.x;
-
 if(this.quantum == false){
    var hitwall = this.physics.arcade.collide(this.player, this.blockLayer);
    if (hitwall == true) this.gameOver();
