@@ -19,6 +19,8 @@ Quantumgator.Game.prototype = {
     this.blockLayer.resizeWorld();
     this.blockLayer.position.set(0, 100);
     this.background.scale.setTo(this.game.world.bounds.width/this.background.width, 1);
+    this.music = this.add.audio('backgroundmusic');
+    this.music.play();
 
     //game.T is the current temperature, keep between [0, 20]
     this.T = 2;
@@ -114,6 +116,8 @@ Quantumgator.Game.prototype = {
       this.gatorAnimation();
     } else {
       this.quantumGatorAnimation();
+      this.music = this.add.audio('quantummusic');
+      this.music.play();
     }
 
     this.game.camera.x = this.player.body.x - 150;
@@ -121,7 +125,7 @@ Quantumgator.Game.prototype = {
     },
 
   quantumGatorAnimation: function() {
-    freq = 50;
+    var freq = 50;
     this.player.y = 84 + 42 + this.altitude*84 + 6 * Math.sin(this.time.now/freq);
     this.quantumGatorParts.x = this.player.body.x;
     this.quantumGatorParts.y = this.player.body.y - 6 * Math.sin(this.time.now/freq);
@@ -136,7 +140,7 @@ Quantumgator.Game.prototype = {
   },
 
   gatorAnimation: function(){
-    freq = 100;
+    var freq = 100;
     this.player.y = 84 + 42 + this.altitude*84 + 4 * Math.sin(this.time.now/freq);
     this.gatorParts.x = this.player.body.x;
     this.gatorParts.y = this.player.body.y - 4 * Math.sin(this.time.now/freq);
@@ -154,7 +158,7 @@ Quantumgator.Game.prototype = {
   },
 
   createEmitter: function(){
-    emitter = this.add.emitter(this.world.centerX, 200, 200);
+    var emitter = this.add.emitter(this.world.centerX, 200, 200);
     emitter.width = 800;
     emitter.makeParticles('star');
     emitter.minParticleSpeed.set(0, 300);
