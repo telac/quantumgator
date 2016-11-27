@@ -17,6 +17,7 @@ Quantumgator.Game.prototype = {
     this.blockLayer.position.set(0, 100);
     this.music1 = this.add.audio('backgroundmusic');
     this.music = this.add.audio('quantummusic');
+    this.coldsound = this.add.audio('good(s)hit');
     this.music.mute = true;
     this.music1.play();
     this.music.play();
@@ -31,9 +32,10 @@ Quantumgator.Game.prototype = {
       color: '#ff0000'},
       width: 400,
     };
-    this.myHealthBar = new HealthBar(this.game, barConfig);
-    this.myHealthBar.setFixedToCamera(true);
-    this.myHealthBar.setPercent((2 / 25) * 100);
+
+    this.temperatureBar = new HealthBar(this.game, barConfig);
+    this.temperatureBar.setFixedToCamera(true);
+    this.temperatureBar.setPercent((2 / 25) * 100);
 
     //game.T is the current temperature, keep between [0, 20]
     this.T = 2;
@@ -109,7 +111,7 @@ Quantumgator.Game.prototype = {
     this.player.y = 84 + this.altitude*84;
     if(this.quantum == false){
        if (this.physics.arcade.collide(this.player, this.blockLayer)) {
-         //this.gameOver();
+         this.gameOver();
        }
     }
     this.game.physics.arcade.overlap(this.player, this.collectables, this.collect, null, this);
@@ -196,7 +198,7 @@ Quantumgator.Game.prototype = {
     }
     if (this.T > 25) {
       this.velocity = 0;
-      //this.gameOver();
+      this.gameOver();
     }
     this.velocity = 300 + 20*this.T;
   },
@@ -232,22 +234,8 @@ Quantumgator.Game.prototype = {
         this.changeTemperature(-10);
         break;
     }
-
+    this.coldsound.play();
     collectable.destroy();
-  },
-  //generated collectables to the game view
-  //....tää on iha helvetin paska idea, en oikeesti tiedä mikä saa mut tekemään tän. mut teen kuitenki.
-  //anteeks.
-  createCollectables: function() {
-    this.collectables = this.add.group();
-    this.collectables.enablebody = true;
-    var cold_objects = this.locateObjects('cold', this.map, 'objectsLayer');
-    var hot_objects = this.locateObjects('hot', this.map, 'objectsLayer');
-
-    cold_objects.forEach(function(element){
-      this.createNiceSprites(element, this.collectables)
-    }, this);
-
   },
 
   createGator: function(){
@@ -358,7 +346,7 @@ Quantumgator.Game.prototype = {
   changeTemperature: function(num){
   this.T += num;
   if (this.T < 0) this.T = 0;
-  this.myHealthBar.setPercent((this.T / 25)*100);
+  this.temperatureBar.setPercent((this.T / 25)*100);
 },
 
 locateObjects: function(type, lvl, layer) {
