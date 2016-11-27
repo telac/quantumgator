@@ -66,6 +66,10 @@ Quantumgator.Game.prototype = {
     this.createQuantumGator();
     this.createCollectables();
 
+    // also for chili, bonfire, dwarf, snowman and icecream
+    this.ice = this.add.sprite(-500, -500, 'ice');
+    this.iceQ = this.add.sprite(-500, -500, 'iceQ');
+
     //keep between [0, 4]
     this.altitude = 2;
     this.quantum = false;
@@ -88,6 +92,15 @@ Quantumgator.Game.prototype = {
     this.passiveHeat();
     this.player.body.velocity.x = this.velocity;
     if (this.quantum != this.lastQuantumState) {
+      this.collectables.forEach(function(element){
+        if (element.key == 'ice') {
+          element.setTexture(this.iceQ.texture);
+          element.key = 'iceQ';
+        } else if (element.key == 'iceQ') {
+          element.setTexture(this.ice.texture);
+          element.key = 'ice';
+        }
+      }, this);
       if (this.quantum) {
         this.map.addTilesetImage('tiles_spreadsheet', 'tilesQ');
         this.quantumGatorParts.visible = true;
