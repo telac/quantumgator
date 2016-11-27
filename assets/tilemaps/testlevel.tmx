@@ -1,110 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="6" tilewidth="84" tileheight="84" nextobjectid="43">
- <tileset firstgid="1" name="tiles_spreadsheet" tilewidth="64" tileheight="64" tilecount="9" columns="3">
-  <image source="../images/tilemap.png" width="192" height="192"/>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="6" tilewidth="84" tileheight="84" nextobjectid="96">
+ <tileset firstgid="1" name="tiles_spreadsheet" tilewidth="84" tileheight="84" tilecount="24" columns="6">
+  <image source="../images/Pigsheets/PigSheet_Normal.png" width="504" height="336"/>
  </tileset>
- <layer name="blockedLayer" width="50" height="6">
+ <layer name="blockedLayer" width="100" height="6">
   <data encoding="csv">
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,9,0,0,0,0,0,9,0,0,0,9,0,0,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,12,0,0,0,0,0,0,11,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,18,0,0,0,0,0,0,17,0,0,0,0,0,0,0,0,0,0,0,0,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,23,0,0,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,7,0,0,0,0,0,0,0,0,0,0,0,15,0,0,0,0,0,0,0,0,0,0,0,0,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,13,0,0,0,0,0,0,0,0,0,0,0,21,0,0,0,0,0,0,0,0,0,19,19,19,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
  <objectgroup name="objectsLayer">
-  <object id="5" name="snowman" type="cold" gid="2" x="348" y="241" width="64" height="64">
-   <properties>
-    <property name="sprite" value="snowman"/>
-    <property name="type" value="cold"/>
-   </properties>
-  </object>
-  <object id="6" name="jalopeno" type="hot" gid="4" x="938" y="488" width="64" height="64">
-   <properties>
-    <property name="sprite" value="chili"/>
-    <property name="type" value="hot"/>
-   </properties>
-  </object>
-  <object id="26" name="icecream" type="cold" gid="3" x="502" y="329" width="64" height="64">
+  <object id="93" gid="2" x="542" y="251" width="84" height="84">
    <properties>
     <property name="sprite" value="icecream"/>
     <property name="type" value="cold"/>
    </properties>
   </object>
-  <object id="28" name="cube" type="cold" gid="1" x="1518" y="333" width="64" height="64">
-   <properties>
-    <property name="sprite" value="ice"/>
-    <property name="type" value="cold"/>
-   </properties>
-  </object>
-  <object id="30" name="dwarf" type="hot" gid="5" x="2518.67" y="336" width="64" height="64">
-   <properties>
-    <property name="sprite" value="dwarf"/>
-    <property name="type" value="hot"/>
-   </properties>
-  </object>
-  <object id="31" name="bonfire" type="hot" gid="6" x="1678.67" y="320" width="64" height="64">
-   <properties>
-    <property name="sprite" value="bonfire"/>
-    <property name="type" value="hot"/>
-   </properties>
-  </object>
-  <object id="33" name="icecream" type="cold" gid="3" x="1433.33" y="485.333" width="64" height="64">
-   <properties>
-    <property name="sprite" value="icecream"/>
-    <property name="type" value="cold"/>
-   </properties>
-  </object>
-  <object id="34" name="icecream" type="cold" gid="3" x="3549.33" y="249.333" width="64" height="64">
-   <properties>
-    <property name="sprite" value="icecream"/>
-    <property name="type" value="cold"/>
-   </properties>
-  </object>
-  <object id="35" name="bonfire" type="hot" gid="6" x="1017.33" y="157.333" width="64" height="64">
-   <properties>
-    <property name="sprite" value="bonfire"/>
-    <property name="type" value="hot"/>
-   </properties>
-  </object>
-  <object id="36" name="cube" type="cold" gid="1" x="1857.33" y="329.333" width="64" height="64">
-   <properties>
-    <property name="sprite" value="ice"/>
-    <property name="type" value="cold"/>
-   </properties>
-  </object>
-  <object id="37" name="cube" type="cold" gid="1" x="1689.33" y="405.333" width="64" height="64">
-   <properties>
-    <property name="sprite" value="ice"/>
-    <property name="type" value="cold"/>
-   </properties>
-  </object>
-  <object id="38" name="snowman" type="cold" gid="2" x="2277.33" y="505.333" width="64" height="64">
-   <properties>
-    <property name="sprite" value="snowman"/>
-    <property name="type" value="cold"/>
-   </properties>
-  </object>
-  <object id="39" name="jalopeno" type="hot" gid="4" x="3109.33" y="501.333" width="64" height="64">
-   <properties>
-    <property name="sprite" value="chili"/>
-    <property name="type" value="hot"/>
-   </properties>
-  </object>
-  <object id="40" name="cube" type="cold" gid="1" x="2861.33" y="253.333" width="64" height="64">
-   <properties>
-    <property name="sprite" value="ice"/>
-    <property name="type" value="cold"/>
-   </properties>
-  </object>
-  <object id="41" name="cube" type="cold" gid="1" x="2945.33" y="253.333" width="64" height="64">
-   <properties>
-    <property name="sprite" value="ice"/>
-    <property name="type" value="cold"/>
-   </properties>
-  </object>
-  <object id="42" name="cube" type="cold" gid="1" x="3029.33" y="249.333" width="64" height="64">
+  <object id="94" gid="3" x="770" y="497" width="84" height="84">
    <properties>
     <property name="sprite" value="ice"/>
     <property name="type" value="cold"/>
