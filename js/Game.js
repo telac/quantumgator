@@ -41,27 +41,13 @@ Quantumgator.Game.prototype = {
     this.T = 2;
     //initilize velocity
     this.velocity = 250;
-
-    //add lanes
-    this.lanes = this.add.group();
-    for (i = 1; i < 6; i++) {
-      this.lanes.create(0, 84+84*i, 'lane');
-    }
-
-    var worldWidth = this.game.world.bounds.width;
-    this.lanes.forEach(function(item) {
-      item.anchor.setTo(0, 1);
-      item.scale.setTo(worldWidth/item.width, 1);
-      item.alpha = 0;
-    });
-
     this.createEmitter();
 
     this.player = this.add.sprite(-200, 280, 'Playerobject');
     this.game.physics.arcade.enable(this.player);
     this.player.scale.setTo(0.5, 0.5);
     this.player.anchor.setTo(0.5, 0.5);
-    //this.player.alpha = 0;
+    this.player.alpha = 0;
     this.createGator();
     this.createQuantumGator();
     this.createCollectables();
