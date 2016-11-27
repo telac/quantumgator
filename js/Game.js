@@ -74,8 +74,8 @@ Quantumgator.Game.prototype = {
   update: function() {
 
   if (!this.quantumButton.isDown && false) {
-    emitter = this.add.emitter(game.world.centerX, 200, 200);
-    emitter.width = 800;
+    emitter = this.add.emitter(game.world.centerX, 0, 0);
+    emitter.width = 8000;
     emitter.makeParticles('star');
     emitter.minParticleSpeed.set(0, 300);
     emitter.maxParticleSpeed.set(0, 400);
@@ -84,6 +84,14 @@ Quantumgator.Game.prototype = {
     emitter.setScale(0.5, 0.5, 1, 1);
     emitter.gravity = -200;
     emitter.start(false, 5000, 100);
+    if (this.quantum != this.lastQuantumState) {
+      if (this.quantum) {
+      	this.map.addImage('star');
+        this.emitter.visible = true;
+      } else {
+        this.emitter.visible = false;
+      }
+     } 
     }
     this.player.body.velocity.x = 300;
     this.passiveHeat();
