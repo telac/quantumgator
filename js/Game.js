@@ -82,7 +82,6 @@ Quantumgator.Game.prototype = {
     this.player.body.velocity.x = 300;
     this.passiveHeat();
     this.player.body.velocity.x = this.velocity;
-
     if (this.quantum != this.lastQuantumState) {
       if (this.quantum) {
         this.map.addTilesetImage('tiles_spreadsheet', 'tilesQ');
@@ -108,6 +107,8 @@ Quantumgator.Game.prototype = {
          this.gameOver();
        }
     }
+    this.game.physics.arcade.overlap(this.player, this.collectables, this.collect, null, this);
+
 
     if (!this.quantum) {
       this.gatorAnimation();
@@ -179,7 +180,7 @@ Quantumgator.Game.prototype = {
   },
   //detection for hitting collectables
   collect: function(player, collectable) {
-
+    collectable.destroy();
   },
   //generated collectables to the game view
   //....tää on iha helvetin paska idea, en oikeesti tiedä mikä saa mut tekemään tän. mut teen kuitenki.
@@ -316,7 +317,7 @@ createNiceSprites: function(element, group){
 },
 createCollectables: function() {
    this.collectables = this.add.group();
-   this.collectables.enablebody = true;
+   this.collectables.enableBody = true;
    var cold_objects = this.locateObjects('cold', this.map, 'objectsLayer');
    var hot_objects = this.locateObjects('hot', this.map, 'objectsLayer');
 
