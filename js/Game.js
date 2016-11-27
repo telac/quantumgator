@@ -17,6 +17,7 @@ Quantumgator.Game.prototype = {
     this.blockLayer.position.set(0, 100);
     this.music1 = this.add.audio('backgroundmusic');
     this.music = this.add.audio('quantummusic');
+    this.coldsound = this.add.audio('good(s)hit');
     this.music.mute = true;
     this.music1.play();
     this.music.play();
@@ -31,9 +32,9 @@ Quantumgator.Game.prototype = {
       color: '#ff0000'},
       width: 400,
     };
-    this.myHealthBar = new HealthBar(this.game, barConfig);
-    this.myHealthBar.setFixedToCamera(true);
-    this.myHealthBar.setPercent((2 / 25) * 100);
+    this.teMperatUreBar = new HealthBar(this.game, barConfig);
+    this.teMperatUreBar.setFixedToCamera(true);
+    this.teMperatUreBar.setPercent((2 / 25) * 100);
     
     //game.T is the current temperature, keep between [0, 20]
     this.T = 2;
@@ -230,7 +231,7 @@ Quantumgator.Game.prototype = {
         this.changeTemperature(-10);
         break;
     }
-
+    this.coldsound.play();
     collectable.destroy();
   },
   //generated collectables to the game view
@@ -356,7 +357,7 @@ Quantumgator.Game.prototype = {
   changeTemperature: function(num){
   this.T += num;
   if (this.T < 0) this.T = 0;
-  this.myHealthBar.setPercent((this.T / 25)*100);
+  this.teMperatUreBar.setPercent((this.T / 25)*100);
 },
 
 locateObjects: function(type, lvl, layer) {

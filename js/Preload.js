@@ -51,9 +51,7 @@ Quantumgator.Preload.prototype = {
     this.load.spritesheet('qGatorTail', 'assets/images/QuantumPropulsionEffect/QuantumCrocofire.png', 64, 64, 4);
     this.load.audio('backgroundmusic', 'assets/audio/QGJ2016_quantumgator_bg-default.mp3');
     this.load.audio('quantummusic', 'assets/audio/QGJ2016_quantumgator_bg-quantum.mp3');
-    this.load.audio('healthHot', 'assets/images/healthHot.png');
-    this.load.audio('healthCold', 'assets/images/healthCold.png');
-    this.load.audio('healthWrap', 'assets/images/healthWrap.png');
+    this.load.audio('good(s)hit', 'assets/audio/QGJ2016_Quantumgator_SFX_pickup-good.mp3');
   },
   create: function() {
     this.state.start('menu');
