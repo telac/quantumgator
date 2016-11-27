@@ -93,7 +93,6 @@ Quantumgator.Game.prototype = {
       }
      } 
     }
-    this.player.body.velocity.x = 300;
     this.passiveHeat();
     this.player.body.velocity.x = this.velocity;
     if (this.quantum != this.lastQuantumState) {
@@ -194,11 +193,11 @@ Quantumgator.Game.prototype = {
     if (this.quantum) {
       this.T += 0.07;
     }
-    if (this.T > 15) {
+    if (this.T > 25) {
       this.velocity = 0;
       this.gameOver();
     }
-    this.velocity = 300 - 20*this.T;
+    this.velocity = 300 + 20*this.T;
   },
   //detect player collision
   playerHit: function(player, blocklayer) {
