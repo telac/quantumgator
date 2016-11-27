@@ -15,7 +15,9 @@ Quantumgator.Game.prototype = {
     this.objectsLayer = this.map.createLayer('objectsLayer');
     this.blockLayer.resizeWorld();
     this.blockLayer.position.set(0, 100);
-    this.background.scale.setTo(this.game.world.bounds.width/this.background.width, 1);
+    console.log(this.game.world.bounds.width); //4200
+    console.log(this.background.width); //8000
+    //this.background.scale.setTo(this.game.world.bounds.width/this.background.width, 1);
     this.music1 = this.add.audio('backgroundmusic');
     this.music = this.add.audio('quantummusic');
     this.music.mute = true;
@@ -73,7 +75,7 @@ Quantumgator.Game.prototype = {
     this.downButton = this.input.keyboard.addKey(Phaser.KeyCode.DOWN);
     // reset for debug!
     this.reset = this.input.keyboard.addKey(Phaser.KeyCode.R);
-    this.reset.onDown.add(this.resetPosition, this);
+    //this.reset.onDown.add(this.resetPosition, this);
 
     this.upButton.onDown.add(this.playerUp, this);
     this.downButton.onDown.add(this.playerDown, this);
@@ -130,6 +132,9 @@ Quantumgator.Game.prototype = {
       this.music.mute = false;
 
     }
+    
+    this.background.x = -200-this.player.x;
+    if (this.background.x < -this.game.world.bounds.width+600) this.background.x = -this.game.world.bounds.width+600;
 
     this.game.camera.x = this.player.body.x - 150;
     this.game.camera.y = this.player.body.y;
@@ -388,11 +393,11 @@ createCollectables: function() {
 
  },
   render: function(){
-    this.game.debug.cameraInfo(this.game.camera, 32, 32);
-    this.game.debug.text("temperature: " + this.T, 400, 20);
-    this.game.debug.text("altitude: " + this.altitude, 400, 30);
-    this.game.debug.text("quantum: " + this.quantum, 400, 40);
-    this.game.debug.text("x: " + this.game.camera.x + " y: " + this.game.camera.y, 400, 50);
-    this.game.debug.text("score: " + this.score, 400, 60);
+    //this.game.debug.cameraInfo(this.game.camera, 32, 32);
+    //this.game.debug.text("temperature: " + this.T, 400, 20);
+    //this.game.debug.text("altitude: " + this.altitude, 400, 30);
+    //this.game.debug.text("quantum: " + this.quantum, 400, 40);
+    //this.game.debug.text("x: " + this.game.camera.x + " y: " + this.game.camera.y, 400, 50);
+    //this.game.debug.text("score: " + this.score, 400, 60);
   }
 }
