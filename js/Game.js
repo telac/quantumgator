@@ -45,7 +45,7 @@ Quantumgator.Game.prototype = {
       item.alpha = 0;
     });
 
-    this.player = this.add.sprite(-200, 280, 'player');
+    this.player = this.add.sprite(-200, 280, 'Playerobject');
     this.game.physics.arcade.enable(this.player);
     this.player.scale.setTo(0.5, 0.5);
     this.player.anchor.setTo(0.5, 0.5);
@@ -73,8 +73,8 @@ Quantumgator.Game.prototype = {
   },
   update: function() {
 
-  if (this.quantumButton.isDown && false) {
-    emitter = this.add.emitter(this.world.centerX, 200, 200);
+  if (!this.quantumButton.isDown && false) {
+    emitter = this.add.emitter(game.world.centerX, 200, 200);
     emitter.width = 800;
     emitter.makeParticles('star');
     emitter.minParticleSpeed.set(0, 300);

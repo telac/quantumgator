@@ -22,6 +22,7 @@ Quantumgator.Preload.prototype = {
     this.load.image('lane', 'assets/images/placeholderLaneTile.png');
     this.load.image('wall', 'assets/images/wall.png');
     this.load.image('star', 'assets/images/star.png');
+    this.load.image('Playerobject', 'assets/images/Playerobject.png');
     this.load.image('gatorUpperHead', 'assets/images/gator/head_quantum.png');
     this.load.image('gatorLowerHead', 'assets/images/gator/jaw_quantum.png');
     this.load.image('gatorBody', 'assets/images/gator/body_quantum.png');
@@ -29,7 +30,6 @@ Quantumgator.Preload.prototype = {
     this.load.image('gatorBackLeg', 'assets/images/gator/backleg_quantum.png');
     this.load.image('gatorTail', 'assets/images/gator/tailpice_quantum.png');
     this.load.image('gatorTailTip', 'assets/images/gator/tailtip_quantum.png');
-    this.load.image('snowflake', 'assets/images/snowflake.png');
     this.load.image('wallBlackhole', 'assets/images/wall_blackhole.png');
     this.load.image('qGatorUpperHead', 'assets/images/Quantumcrocodile_Colour/Quantumhead_Top.png');
     this.load.image('qGatorLowerHead', 'assets/images/Quantumcrocodile_Colour/Quantumhead_Bottom.png');
