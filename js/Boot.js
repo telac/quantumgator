@@ -3,10 +3,6 @@ var Quantumgator = Quantumgator || {};
 Quantumgator.Boot = function(){};
 
 Quantumgator.Boot.prototype = {
-  preload: function() {
-    this.load.image('preloadbar', 'assets/images/preloadbar.png');
-  },
-
   create: function() {
     //white loading screen background
     this.game.stage.backgroundColor = '#fff';

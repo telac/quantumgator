@@ -36,13 +36,21 @@ Quantumgator.Preload.prototype = {
     this.load.image('qGatorBody', 'assets/images/Quantumcrocodile_Colour/Quantumbody.png');
     this.load.image('qGatorFrontLeg', 'assets/images/Quantumcrocodile_Colour/Quantumforearm.png');
     this.load.image('qGatorBackLeg', 'assets/images/Quantumcrocodile_Colour/Quantumbackleg.png');
-    this.load.image('player', 'assets/images/snowflake.png');
     this.load.image('chili', 'assets/images/Quantum_chili.png');
     this.load.image('icecream', 'assets/images/Quantum_icecream.png');
     this.load.image('ice', 'assets/images/Quantum_icecube.png');
     this.load.image('bonfire', 'assets/images/Quantum_nuotio.png');
     this.load.image('dwarf', 'assets/images/Quantum_reddwarf.png');
     this.load.image('snowman', 'assets/images/Quantum_snowman.png');
+    this.load.image('menu', 'assets/images/StartScreen/QuantumGator_StartScreen.png');
+    this.load.image('menutext', 'assets/images/StartScreen/StartText.png');
+    this.load.image('skull', 'assets/images/GameOver_Screen/gatorhead.png');
+		this.load.image('jaw', 'assets/images/GameOver_Screen/gatorjaw.png');
+		this.load.image('gameoverText', 'assets/images/GameOver_Screen/GatorOverText.png');
+		this.load.image('restartText', 'assets/images/GameOver_Screen/RestartText.png');
+    this.load.image('startScreen', 'assets/images/StartScreen/QuantumGator_StartScreen.png');
+		this.load.image('startText', 'assets/images/StartScreen/StartText.png');
+
     this.load.audio('backgroundmusic', 'assets/audio/QGJ2016_quantumgator_bg-default.mp3');
     this.load.audio('quantummusic', 'assets/audio/QGJ2016_quantumgator_bg-quantum.mp3');
     this.load.audio('healthHot', 'assets/images/healthHot.png');
@@ -50,6 +58,6 @@ Quantumgator.Preload.prototype = {
     this.load.audio('healthWrap', 'assets/images/healthWrap.png');
   },
   create: function() {
-    this.state.start('Game');
+    this.state.start('menu');
   }
 }
