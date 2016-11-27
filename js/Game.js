@@ -1,6 +1,4 @@
 var Quantumgator = Quantumgator || {};
-var emitter;
-
 Quantumgator.Game = function(){};
 
 Quantumgator.Game.prototype = {
@@ -12,7 +10,6 @@ Quantumgator.Game.prototype = {
     this.background = this.add.sprite(0, 0, 'background');
     this.map = this.game.add.tilemap('testlevel');
     this.map.addTilesetImage('tiles_spreadsheet', 'tiles');
-    //this.backgroundlayer = this.map.createLayer('backgroundLayer');
     this.blockLayer = this.map.createLayer('blockedLayer');
     this.map.setCollisionBetween(1, 100000, true, 'blockedLayer');
     this.objectsLayer = this.map.createLayer('objectsLayer');
@@ -24,11 +21,6 @@ Quantumgator.Game.prototype = {
     this.music.mute = true;
     this.music1.play();
     this.music.play();
-    
-    //DEBUG SHIT
-
-
-    
     //health bar
     var barConfig = {x: 250, y: 550,
       bg: {
@@ -46,8 +38,6 @@ Quantumgator.Game.prototype = {
     this.T = 2;
     //initilize velocity
     this.velocity = 250;
-    //create emitter
-    this.emitter = this.createEmitter();
 
     //add lanes
     this.lanes = this.add.group();
@@ -61,6 +51,8 @@ Quantumgator.Game.prototype = {
       item.scale.setTo(worldWidth/item.width, 1);
       item.alpha = 0;
     });
+
+    this.createEmitter();
 
     this.player = this.add.sprite(-200, 280, 'Playerobject');
     this.game.physics.arcade.enable(this.player);
@@ -89,26 +81,7 @@ Quantumgator.Game.prototype = {
     this.lastQuantumState = this.quantum;
   },
   update: function() {
-  if (!this.quantumButton.isDown && false) {
-    emitter = this.add.emitter(game.world.centerX, 0, 0);
-    emitter.width = 8000;
-    emitter.makeParticles('star');
-    emitter.minParticleSpeed.set(0, 300);
-    emitter.maxParticleSpeed.set(0, 400);
-    emitter.setRotation(0, 0);
-    emitter.setAlpha(0.3, 0.8);
-    emitter.setScale(0.5, 0.5, 1, 1);
-    emitter.gravity = -200;
-    emitter.start(false, 5000, 100);
-    if (this.quantum != this.lastQuantumState) {
-      if (this.quantum) {
-      	this.map.addImage('star');
-        this.emitter.visible = true;
-      } else {
-        this.emitter.visible = false;
-      }
-     } 
-    }
+
     this.passiveHeat();
     this.player.body.velocity.x = this.velocity;
     if (this.quantum != this.lastQuantumState) {
@@ -116,10 +89,12 @@ Quantumgator.Game.prototype = {
         this.map.addTilesetImage('tiles_spreadsheet', 'tilesQ');
         this.quantumGatorParts.visible = true;
         this.gatorParts.visible = false;
+        this.emitter.on = true;
       } else {
         this.map.addTilesetImage('tiles_spreadsheet', 'tiles');
         this.quantumGatorParts.visible = false;
         this.gatorParts.visible = true;
+        this.emitter.on = false;
       }
     }
     this.lastQuantumState = this.quantum;
@@ -138,6 +113,8 @@ Quantumgator.Game.prototype = {
     }
     this.game.physics.arcade.overlap(this.player, this.collectables, this.collect, null, this);
 
+    this.emitter.x = this.player.x + 500;
+
     if (this.player.x > this.game.world.bounds.width) {
       this.resetPosition();
     }
@@ -146,12 +123,12 @@ Quantumgator.Game.prototype = {
       this.gatorAnimation();
       this.music1.mute = false;
       this.music.mute = true;
-          } 
+          }
           if(this.quantum) {
       this.quantumGatorAnimation();
       this.music1.mute = true;
       this.music.mute = false;
-      
+
     }
 
     this.game.camera.x = this.player.body.x - 150;
@@ -193,16 +170,17 @@ Quantumgator.Game.prototype = {
   },
 
   createEmitter: function(){
-    var emitter = this.add.emitter(this.world.centerX, 200, 200);
-    emitter.width = 800;
-    emitter.makeParticles('star');
-    emitter.minParticleSpeed.set(0, 300);
-    emitter.maxParticleSpeed.set(0, 400);
-    emitter.setRotation(0, 0);
-    emitter.setAlpha(0.3, 0.8);
-    emitter.setScale(0.5, 0.5, 1, 1);
-    emitter.gravity = -200;
-    emitter.start(false, 5000, 100);
+    this.emitter = this.add.emitter(0, 200, 200);
+    this.emitter.width = 800;
+    this.emitter.makeParticles('star');
+    this.emitter.minParticleSpeed.set(0, 300);
+    this.emitter.maxParticleSpeed.set(0, 400);
+    this.emitter.setRotation(0, 0);
+    this.emitter.setAlpha(0.3, 0.8);
+    this.emitter.setScale(0.5, 0.5, 1, 1);
+    this.emitter.gravity = -500;
+    this.emitter.start(false, 5000, 10);
+    this.emitter.on = false;
   },
 
   passiveHeat: function(){
