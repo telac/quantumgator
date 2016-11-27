@@ -179,11 +179,11 @@ Quantumgator.Game.prototype = {
     if (this.quantum) {
       this.T += 0.07;
     }
-    if (this.T > 25) {
+    if (this.T > 10) {
       this.velocity = 0;
       this.gameOver();
     }
-    this.velocity = 250 + 50*this.T;
+    this.velocity = 300 - 25*this.T;
   },
   //detect player collision
   playerHit: function(player, blocklayer) {
