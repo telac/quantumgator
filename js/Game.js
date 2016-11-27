@@ -34,7 +34,7 @@ Quantumgator.Game.prototype = {
     this.myHealthBar = new HealthBar(this.game, barConfig);
     this.myHealthBar.setFixedToCamera(true);
     this.myHealthBar.setPercent((2 / 25) * 100);
-    
+
     //game.T is the current temperature, keep between [0, 20]
     this.T = 2;
     //initilize velocity
@@ -109,7 +109,7 @@ Quantumgator.Game.prototype = {
     this.player.y = 84 + this.altitude*84;
     if(this.quantum == false){
        if (this.physics.arcade.collide(this.player, this.blockLayer)) {
-         this.gameOver();
+         //this.gameOver();
        }
     }
     this.game.physics.arcade.overlap(this.player, this.collectables, this.collect, null, this);
@@ -129,11 +129,13 @@ Quantumgator.Game.prototype = {
       this.quantumGatorAnimation();
       this.music1.mute = true;
       this.music.mute = false;
-
     }
-    
-    this.background.x = -200-this.player.x;
-    if (this.background.x < -this.game.world.bounds.width+600) this.background.x = -this.game.world.bounds.width+600;
+
+    var percent = this.player.x/this.game.world.bounds.width;
+    this.background.x = this.player.x - 200 - percent*(this.background.width-600);
+    if (this.player.x > this.game.world.bounds.width - 600) {
+      this.background.x = this.game.world.bounds.width - this.background.width;
+    }
 
     this.game.camera.x = this.player.body.x - 150;
     this.game.camera.y = this.player.body.y;
@@ -194,7 +196,7 @@ Quantumgator.Game.prototype = {
     }
     if (this.T > 25) {
       this.velocity = 0;
-      this.gameOver();
+      //this.gameOver();
     }
     this.velocity = 300 + 20*this.T;
   },
@@ -294,17 +296,17 @@ Quantumgator.Game.prototype = {
     this.quantumGatorParts.create(-75, 0, 'qGatorTail');
     this.anim = this.quantumGatorParts.children[0].animations.add('anim');
     this.quantumGatorParts.children[0].animations.play('anim', 24, true);
-    
+
     this.quantumGatorParts.create(-20, 0, 'qGatorBody');
     this.quantumGatorParts.create(-5, 0, 'qGatorFrontLeg');
     this.quantumGatorParts.create(-55, 0, 'qGatorBackLeg');
     this.quantumGatorParts.create(8, 0, 'qGatorLowerHead');
     this.quantumGatorParts.create(0, 0, 'qGatorUpperHead');
-    
+
     //tail
     this.quantumGatorParts.children[0].scale.setTo(1.2, 0.8);
     this.quantumGatorParts.children[0].anchor.setTo(0.5, 0.5);
-    
+
     //body
     this.quantumGatorParts.children[1].scale.setTo(0.5, 0.5);
     this.quantumGatorParts.children[1].anchor.setTo(0.5, 0.5);
@@ -323,7 +325,7 @@ Quantumgator.Game.prototype = {
 
     //upper jaw
     this.quantumGatorParts.children[5].scale.setTo(1, 0.75);
-    
+
     this.quantumGatorParts.visible = false;
   },
 
