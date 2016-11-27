@@ -6,8 +6,8 @@ Quantumgator.Preload.prototype = {
   preload: function() {
     //show loading screen
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
-    this.loading = this.add.sprite(0, 0, 'loadingImage');
-    this.load.setPreloadSprite(this.loading);
+    this.loadingImage = this.add.sprite(0, 0, 'loadingImage');
+    this.load.setPreloadSprite(this.loadingImage);
 
     //load game assets
     this.load.tilemap('testlevel', 'assets/tilemaps/tilemap.json', null, Phaser.Tilemap.TILED_JSON);
