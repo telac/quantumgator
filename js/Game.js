@@ -121,6 +121,11 @@ Quantumgator.Game.prototype = {
       this.quantum = false;
     }
 
+    var angle = 25 * Math.sin(this.time.now/500);
+    this.collectables.forEach(function(element){
+      element.angle = angle;
+    }, this);
+
     this.player.y = 84 + this.altitude*84;
     if(this.quantum == false){
        if (this.physics.arcade.collide(this.player, this.blockLayer)) {
@@ -391,6 +396,12 @@ createCollectables: function() {
    }, this);
    hot_objects.forEach(function(element){
      this.createNiceSprites(element, this.collectables)
+   }, this);
+
+   this.collectables.forEach(function(element){
+     element.anchor.setTo(0.5, 0.5);
+     element.x += 32;
+     element.y += 32;
    }, this);
 
  },
