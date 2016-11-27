@@ -32,6 +32,7 @@ Quantumgator.Game.prototype = {
       color: '#ff0000'},
       width: 400,
     };
+    
     this.teMperatUreBar = new HealthBar(this.game, barConfig);
     this.teMperatUreBar.setFixedToCamera(true);
     this.teMperatUreBar.setPercent((2 / 25) * 100);
@@ -233,20 +234,6 @@ Quantumgator.Game.prototype = {
     }
     this.coldsound.play();
     collectable.destroy();
-  },
-  //generated collectables to the game view
-  //....tää on iha helvetin paska idea, en oikeesti tiedä mikä saa mut tekemään tän. mut teen kuitenki.
-  //anteeks.
-  createCollectables: function() {
-    this.collectables = this.add.group();
-    this.collectables.enablebody = true;
-    var cold_objects = this.locateObjects('cold', this.map, 'objectsLayer');
-    var hot_objects = this.locateObjects('hot', this.map, 'objectsLayer');
-
-    cold_objects.forEach(function(element){
-      this.createNiceSprites(element, this.collectables)
-    }, this);
-
   },
 
   createGator: function(){
