@@ -50,7 +50,7 @@ Quantumgator.Preload.prototype = {
 		this.load.image('restartText', 'assets/images/GameOver_Screen/RestartText.png');
     this.load.image('startScreen', 'assets/images/StartScreen/QuantumGator_StartScreen.png');
 		this.load.image('startText', 'assets/images/StartScreen/StartText.png');
-
+    this.load.spritesheet('qGatorTail', 'assets/images/QuantumPropulsionEffect/QuantumCrocofire.png', 64, 64, 4);
     this.load.audio('backgroundmusic', 'assets/audio/QGJ2016_quantumgator_bg-default.mp3');
     this.load.audio('quantummusic', 'assets/audio/QGJ2016_quantumgator_bg-quantum.mp3');
     this.load.audio('healthHot', 'assets/images/healthHot.png');

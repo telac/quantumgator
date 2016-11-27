@@ -25,6 +25,10 @@ Quantumgator.Game.prototype = {
     this.music1.play();
     this.music.play();
     
+    //DEBUG SHIT
+
+
+    
     //health bar
     var barConfig = {x: 250, y: 550,
       bg: {
@@ -36,6 +40,7 @@ Quantumgator.Game.prototype = {
     };
     this.myHealthBar = new HealthBar(this.game, barConfig);
     this.myHealthBar.setFixedToCamera(true);
+    this.myHealthBar.setPercent((2 / 25) * 100);
     
     //game.T is the current temperature, keep between [0, 20]
     this.T = 2;
@@ -158,14 +163,15 @@ Quantumgator.Game.prototype = {
     this.player.y = 84 + 42 + this.altitude*84 + 6 * Math.sin(this.time.now/freq);
     this.quantumGatorParts.x = this.player.body.x;
     this.quantumGatorParts.y = this.player.body.y - 6 * Math.sin(this.time.now/freq);
-    this.quantumGatorParts.children[4].y = 6 * Math.sin(this.time.now/freq);
-    this.quantumGatorParts.children[3].y = 20 + 6 * Math.sin(this.time.now/freq);
-    this.quantumGatorParts.children[3].angle = 10 * Math.sin(this.time.now/100) + 15;
-    this.quantumGatorParts.children[0].y = 20 + 6 * Math.sin((this.time.now-freq)/freq);
-    this.quantumGatorParts.children[1].y = 30 + 6 * Math.sin((this.time.now-freq)/freq);
-    this.quantumGatorParts.children[1].angle = 10 * Math.sin(this.time.now/100);
-    this.quantumGatorParts.children[2].y = 30 + 4 * Math.sin((this.time.now-freq)/freq);
+    this.quantumGatorParts.children[5].y = 6 * Math.sin(this.time.now/freq);
+    this.quantumGatorParts.children[4].y = 20 + 6 * Math.sin(this.time.now/freq);
+    this.quantumGatorParts.children[4].angle = 10 * Math.sin(this.time.now/100) + 15;
+    this.quantumGatorParts.children[1].y = 20 + 6 * Math.sin((this.time.now-freq)/freq);
+    this.quantumGatorParts.children[2].y = 30 + 6 * Math.sin((this.time.now-freq)/freq);
     this.quantumGatorParts.children[2].angle = 10 * Math.sin(this.time.now/100);
+    this.quantumGatorParts.children[3].y = 30 + 4 * Math.sin((this.time.now-freq)/freq);
+    this.quantumGatorParts.children[3].angle = 10 * Math.sin(this.time.now/100);
+    this.quantumGatorParts.children[0].y = 20 + 6 * Math.sin(this.time.now/freq);
   },
 
   gatorAnimation: function(){
@@ -303,32 +309,39 @@ Quantumgator.Game.prototype = {
 
   createQuantumGator: function(){
     this.quantumGatorParts = this.add.group();
-
-    this.quantumGatorParts.create(-20, 100, 'qGatorBody');
-    this.quantumGatorParts.create(-5, 100, 'qGatorFrontLeg');
-    this.quantumGatorParts.create(-55, 100, 'qGatorBackLeg');
-    this.quantumGatorParts.create(8, 100, 'qGatorLowerHead');
+    this.quantumGatorParts.create(-75, 0, 'qGatorTail');
+    this.anim = this.quantumGatorParts.children[0].animations.add('anim');
+    this.quantumGatorParts.children[0].animations.play('anim', 24, true);
+    
+    this.quantumGatorParts.create(-20, 0, 'qGatorBody');
+    this.quantumGatorParts.create(-5, 0, 'qGatorFrontLeg');
+    this.quantumGatorParts.create(-55, 0, 'qGatorBackLeg');
+    this.quantumGatorParts.create(8, 0, 'qGatorLowerHead');
     this.quantumGatorParts.create(0, 0, 'qGatorUpperHead');
-
-    //body
-    this.quantumGatorParts.children[0].scale.setTo(0.5, 0.5);
+    
+    //tail
+    this.quantumGatorParts.children[0].scale.setTo(1.2, 0.8);
     this.quantumGatorParts.children[0].anchor.setTo(0.5, 0.5);
+    
+    //body
+    this.quantumGatorParts.children[1].scale.setTo(0.5, 0.5);
+    this.quantumGatorParts.children[1].anchor.setTo(0.5, 0.5);
 
     //frontleg
-    this.quantumGatorParts.children[1].scale.setTo(0.5, 0.5);
-    this.quantumGatorParts.children[1].anchor.setTo(0.5, 0.33);
-
-    //backleg
     this.quantumGatorParts.children[2].scale.setTo(0.5, 0.5);
     this.quantumGatorParts.children[2].anchor.setTo(0.5, 0.33);
 
+    //backleg
+    this.quantumGatorParts.children[3].scale.setTo(0.5, 0.5);
+    this.quantumGatorParts.children[3].anchor.setTo(0.5, 0.33);
+
     //lower jaw
-    this.quantumGatorParts.children[3].scale.setTo(1, 1);
-    this.quantumGatorParts.children[3].anchor.setTo(0.1, 0.5);
+    this.quantumGatorParts.children[4].scale.setTo(1, 1);
+    this.quantumGatorParts.children[4].anchor.setTo(0.1, 0.5);
 
     //upper jaw
-    this.quantumGatorParts.children[4].scale.setTo(1, 0.75);
-
+    this.quantumGatorParts.children[5].scale.setTo(1, 0.75);
+    
     this.quantumGatorParts.visible = false;
   },
 
