@@ -45,6 +45,9 @@ Quantumgator.Preload.prototype = {
     this.load.image('snowman', 'assets/images/Quantum_snowman.png');
     this.load.audio('backgroundmusic', 'assets/audio/QGJ2016_quantumgator_bg-default.mp3');
     this.load.audio('quantummusic', 'assets/audio/QGJ2016_quantumgator_bg-quantum.mp3');
+    this.load.audio('healthHot', 'assets/images/healthHot.png');
+    this.load.audio('healthCold', 'assets/images/healthCold.png');
+    this.load.audio('healthWrap', 'assets/images/healthWrap.png');
   },
   create: function() {
     this.state.start('Game');

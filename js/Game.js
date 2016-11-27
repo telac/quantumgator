@@ -24,7 +24,19 @@ Quantumgator.Game.prototype = {
     this.music.mute = true;
     this.music1.play();
     this.music.play();
-
+    
+    //health bar
+    var barConfig = {x: 250, y: 550,
+      bg: {
+      color: '#3366ff'
+    },
+    bar: {
+      color: '#ff0000'},
+      width: 400,
+    };
+    this.myHealthBar = new HealthBar(this.game, barConfig);
+    this.myHealthBar.setFixedToCamera(true);
+    
     //game.T is the current temperature, keep between [0, 20]
     this.T = 2;
     //initilize velocity
@@ -72,7 +84,6 @@ Quantumgator.Game.prototype = {
     this.lastQuantumState = this.quantum;
   },
   update: function() {
-
   if (!this.quantumButton.isDown && false) {
     emitter = this.add.emitter(game.world.centerX, 0, 0);
     emitter.width = 8000;
@@ -189,9 +200,9 @@ Quantumgator.Game.prototype = {
   },
 
   passiveHeat: function(){
-    this.T += 0.01;
+    this.changeTemperature(0.01);
     if (this.quantum) {
-      this.T += 0.07;
+      this.changeTemperature(0.07);
     }
     if (this.T > 25) {
       this.velocity = 0;
@@ -350,6 +361,7 @@ Quantumgator.Game.prototype = {
   changeTemperature: function(num){
   this.T += num;
   if (this.T < 0) this.T = 0;
+  this.myHealthBar.setPercent((this.T / 25)*100);
 },
 
 locateObjects: function(type, lvl, layer) {
