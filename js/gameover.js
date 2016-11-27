@@ -7,6 +7,8 @@ Quantumgator.gameover.prototype = {
 		this.skull = this.add.sprite(this.game.width/2, this.game.height/2, 'skull');
 		this.overText = this.add.sprite(this.game.width/2, 100, 'gameoverText');
 		this.restartText = this.add.sprite(this.game.width/2, this.game.height-50, 'restartText');
+		this.scoreText = this.add.text(100, this.game.height - 100, "score", {font:"20px Arial", fill:"#000000"});
+		this.scoreText.text = 'score: ' + this.game.score;
 		this.overText.anchor.setTo(0.5, 0.5);
 		this.restartText.anchor.setTo(0.5, 0.5);
 		this.jaw.anchor.setTo(0.5, 0.5);

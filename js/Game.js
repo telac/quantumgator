@@ -15,14 +15,13 @@ Quantumgator.Game.prototype = {
     this.objectsLayer = this.map.createLayer('objectsLayer');
     this.blockLayer.resizeWorld();
     this.blockLayer.position.set(0, 100);
-    console.log(this.game.world.bounds.width); //4200
-    console.log(this.background.width); //8000
-    //this.background.scale.setTo(this.game.world.bounds.width/this.background.width, 1);
     this.music1 = this.add.audio('backgroundmusic');
     this.music = this.add.audio('quantummusic');
     this.music.mute = true;
     this.music1.play();
     this.music.play();
+    this.game.scoreText = this.add.text(100, 20, "score", {font: "20px Arial", fill:"#000000"});
+    this.game.scoreText.fixedToCamera = true;
     //health bar
     var barConfig = {x: 250, y: 550,
       bg: {
@@ -68,7 +67,7 @@ Quantumgator.Game.prototype = {
     //keep between [0, 4]
     this.altitude = 2;
     this.quantum = false;
-    this.score = 0;
+    this.game.score = 0;
 
     // keys
     this.upButton = this.input.keyboard.addKey(Phaser.KeyCode.UP);
@@ -83,7 +82,7 @@ Quantumgator.Game.prototype = {
     this.lastQuantumState = this.quantum;
   },
   update: function() {
-
+    this.game.scoreText.text = 'score: ' + this.game.score;
     this.passiveHeat();
     this.player.body.velocity.x = this.velocity;
     if (this.quantum != this.lastQuantumState) {
@@ -207,27 +206,27 @@ Quantumgator.Game.prototype = {
   collect: function(player, collectable) {
     switch (collectable.key) {
       case 'chili':
-        this.score += 50;
+        this.game.score += 50;
         this.changeTemperature(2);
         break;
       case 'bonfire':
-        this.score += 100;
+        this.game.score += 100;
         this.changeTemperature(5);
         break;
       case 'dwarf':
-        this.score += 250;
+        this.game.score += 250;
         this.changeTemperature(10);
         break;
       case 'icecream':
-        this.score += 20;
+        this.game.score += 20;
         this.changeTemperature(-2);
         break;
       case 'ice':
-        this.score += 5;
+        this.game.score += 5;
         this.changeTemperature(-5);
         break;
       case 'snowman':
-        this.score += 150;
+        this.game.score += 150;
         this.changeTemperature(-10);
         break;
     }
@@ -398,6 +397,6 @@ createCollectables: function() {
     //this.game.debug.text("altitude: " + this.altitude, 400, 30);
     //this.game.debug.text("quantum: " + this.quantum, 400, 40);
     //this.game.debug.text("x: " + this.game.camera.x + " y: " + this.game.camera.y, 400, 50);
-    //this.game.debug.text("score: " + this.score, 400, 60);
+    //this.game.debug.text("score: " + this.game.score, 400, 60);
   }
 }
