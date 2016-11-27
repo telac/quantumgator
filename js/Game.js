@@ -190,7 +190,7 @@ Quantumgator.Game.prototype = {
       this.velocity = 0;
       this.gameOver();
     }
-    this.velocity = 300 - 25*this.T;
+    this.velocity = 300 - 20*this.T;
   },
   //detect player collision
   playerHit: function(player, blocklayer) {
@@ -317,6 +317,8 @@ Quantumgator.Game.prototype = {
   //declare game over
   gameOver: function(){
     this.velocity = 0;
+    this.music.stop();
+    this.music1.stop();
     this.game.state.start('Game');
   },
 
