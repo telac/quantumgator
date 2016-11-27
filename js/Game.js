@@ -8,7 +8,7 @@ Quantumgator.Game.prototype = {
   },
   create: function() {
     this.background = this.add.sprite(0, 0, 'background');
-    this.map = this.game.add.tilemap('testlevel');
+    this.map = this.game.add.tilemap('level1');
     this.map.addTilesetImage('tiles_spreadsheet', 'tiles');
     this.blockLayer = this.map.createLayer('blockedLayer');
     this.map.setCollisionBetween(1, 100000, true, 'blockedLayer');
@@ -52,9 +52,18 @@ Quantumgator.Game.prototype = {
     this.createQuantumGator();
     this.createCollectables();
 
-    // also for chili, bonfire, dwarf, snowman and icecream
     this.ice = this.add.sprite(-500, -500, 'ice');
     this.iceQ = this.add.sprite(-500, -500, 'iceQ');
+    this.dwarf = this.add.sprite(-500, -500, 'dwarf');
+    this.dwarfQ = this.add.sprite(-500, -500, 'dwarfQ');
+    this.chili = this.add.sprite(-500, -500, 'chili');
+    this.chiliQ = this.add.sprite(-500, -500, 'chiliQ');
+    this.bonfire = this.add.sprite(-500, -500, 'bonfire');
+    this.bonfireQ = this.add.sprite(-500, -500, 'bonfireQ');
+    this.snowman = this.add.sprite(-500, -500, 'snowman');
+    this.snowmanQ = this.add.sprite(-500, -500, 'snowmanQ');
+    this.icecream = this.add.sprite(-500, -500, 'icecream');
+    this.icecreamQ = this.add.sprite(-500, -500, 'icecreamQ');
 
     //keep between [0, 4]
     this.altitude = 2;
@@ -85,6 +94,36 @@ Quantumgator.Game.prototype = {
         } else if (element.key == 'iceQ') {
           element.setTexture(this.ice.texture);
           element.key = 'ice';
+        } else if (element.key == 'dwarf') {
+          element.setTexture(this.dwarfQ.texture);
+          element.key = 'dwarfQ';
+        } else if (element.key == 'dwarfQ') {
+          element.setTexture(this.dwarf.texture);
+          element.key = 'dwarf';
+        } else if (element.key == 'chili') {
+          element.setTexture(this.chiliQ.texture);
+          element.key = 'chiliQ';
+        } else if (element.key == 'chiliQ') {
+          element.setTexture(this.chili.texture);
+          element.key = 'chili';
+        } else if (element.key == 'bonfire') {
+          element.setTexture(this.bonfireQ.texture);
+          element.key = 'bonfireQ';
+        } else if (element.key == 'bonfireQ') {
+          element.setTexture(this.bonfire.texture);
+          element.key = 'bonfire';
+        } else if (element.key == 'snowman') {
+          element.setTexture(this.snowmanQ.texture);
+          element.key = 'snowmanQ';
+        } else if (element.key == 'snowmanQ') {
+          element.setTexture(this.snowman.texture);
+          element.key = 'snowman';
+        } else if (element.key == 'icecream') {
+          element.setTexture(this.icecreamQ.texture);
+          element.key = 'icecreamQ';
+        } else if (element.key == 'icecreamQ') {
+          element.setTexture(this.icecream.texture);
+          element.key = 'icecream';
         }
       }, this);
       if (this.quantum) {
