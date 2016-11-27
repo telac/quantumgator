@@ -50,7 +50,7 @@
     <property name="type" value="hot"/>
    </properties>
   </object>
-  <object id="33" name="icecream" type="cold" gid="3" x="1665.33" y="81.3333" width="64" height="64">
+  <object id="33" name="icecream" type="cold" gid="3" x="1433.33" y="485.333" width="64" height="64">
    <properties>
     <property name="sprite" value="icecream"/>
     <property name="type" value="cold"/>
@@ -80,7 +80,7 @@
     <property name="type" value="cold"/>
    </properties>
   </object>
-  <object id="38" name="snowman" type="cold" gid="2" x="2177.33" y="85.3333" width="64" height="64">
+  <object id="38" name="snowman" type="cold" gid="2" x="2277.33" y="505.333" width="64" height="64">
    <properties>
     <property name="sprite" value="snowman"/>
     <property name="type" value="cold"/>

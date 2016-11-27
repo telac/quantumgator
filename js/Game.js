@@ -54,6 +54,7 @@ Quantumgator.Game.prototype = {
     //keep between [0, 4]
     this.altitude = 2;
     this.quantum = false;
+    this.score = 0;
 
     // keys
     this.upButton = this.input.keyboard.addKey(Phaser.KeyCode.UP);
@@ -111,6 +112,9 @@ Quantumgator.Game.prototype = {
     }
     this.game.physics.arcade.overlap(this.player, this.collectables, this.collect, null, this);
 
+    if (this.player.x > this.game.world.bounds.width) {
+      this.resetPosition();
+    }
 
     if (!this.quantum) {
       this.gatorAnimation();
@@ -172,6 +176,9 @@ Quantumgator.Game.prototype = {
 
   passiveHeat: function(){
     this.T += 0.01;
+    if (this.quantum) {
+      this.T += 0.07;
+    }
     if (this.T > 25) {
       this.velocity = 0;
       this.gameOver();
@@ -184,6 +191,33 @@ Quantumgator.Game.prototype = {
   },
   //detection for hitting collectables
   collect: function(player, collectable) {
+    switch (collectable.key) {
+      case 'chili':
+        this.score += 50;
+        this.changeTemperature(2);
+        break;
+      case 'bonfire':
+        this.score += 100;
+        this.changeTemperature(5);
+        break;
+      case 'dwarf':
+        this.score += 250;
+        this.changeTemperature(10);
+        break;
+      case 'icecream':
+        this.score += 20;
+        this.changeTemperature(-2);
+        break;
+      case 'ice':
+        this.score += 5;
+        this.changeTemperature(-5);
+        break;
+      case 'snowman':
+        this.score += 150;
+        this.changeTemperature(-10);
+        break;
+    }
+
     collectable.destroy();
   },
   //generated collectables to the game view
@@ -299,6 +333,7 @@ Quantumgator.Game.prototype = {
   //changes the temperature in range [0,20]
   changeTemperature: function(num){
   this.T += num;
+  if (this.T < 0) this.T = 0;
 },
 
 locateObjects: function(type, lvl, layer) {
@@ -339,5 +374,6 @@ createCollectables: function() {
     this.game.debug.text("altitude: " + this.altitude, 400, 30);
     this.game.debug.text("quantum: " + this.quantum, 400, 40);
     this.game.debug.text("x: " + this.game.camera.x + " y: " + this.game.camera.y, 400, 50);
+    this.game.debug.text("score: " + this.score, 400, 60);
   }
 }
