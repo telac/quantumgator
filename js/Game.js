@@ -186,7 +186,7 @@ Quantumgator.Game.prototype = {
     if (this.quantum) {
       this.T += 0.07;
     }
-    if (this.T > 10) {
+    if (this.T > 15) {
       this.velocity = 0;
       this.gameOver();
     }
