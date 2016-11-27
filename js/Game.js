@@ -19,8 +19,7 @@ Quantumgator.Game.prototype = {
     this.blockLayer.resizeWorld();
     this.blockLayer.position.set(0, 100);
     this.background.scale.setTo(this.game.world.bounds.width/this.background.width, 1);
-    //create objects
-    this.createCollectables();
+
     //game.T is the current temperature, keep between [0, 20]
     this.T = 2;
     //initilize velocity
@@ -43,12 +42,12 @@ Quantumgator.Game.prototype = {
 
     this.player = this.add.sprite(-200, 280, 'player');
     this.game.physics.arcade.enable(this.player);
-    //this.player = this.add.sprite(-200, 280, 'gatorUpperHead');
     this.player.scale.setTo(0.5, 0.5);
     this.player.anchor.setTo(0.5, 0.5);
     //this.player.alpha = 0;
     this.createGator();
     this.createQuantumGator();
+    this.createCollectables();
 
     //keep between [0, 4]
     this.altitude = 2;
@@ -190,11 +189,11 @@ Quantumgator.Game.prototype = {
     this.collectables.enablebody = true;
     var cold_objects = this.locateObjects('cold', this.map, 'objectsLayer');
     var hot_objects = this.locateObjects('hot', this.map, 'objectsLayer');
-    
+
     cold_objects.forEach(function(element){
       this.createNiceSprites(element, this.collectables)
     }, this);
-    
+
   },
 
   createGator: function(){
@@ -296,32 +295,39 @@ Quantumgator.Game.prototype = {
   changeTemperature: function(num){
   this.T += num;
 },
-//idea behind adding new objects borrowed from this guide:
-//https://software.intel.com/en-us/html5/hub/blogs/how-to-make-a-sidescroller-game-with-html5/
+
 locateObjects: function(type, lvl, layer) {
-  var objects = new Array();
-  lvl.objects[layer].forEach(function(element){
-    console.log(element);
-    if(element.type === type) {
-      element.y -= lvl.tileHeight;
-      objects.push(element);
-    }
-  });
-  return objects;
+ var objects = new Array();
+ lvl.objects[layer].forEach(function(element){
+   if(element.properties.type === type) {
+     element.y -= lvl.tileHeight;
+     objects.push(element);
+   }
+ });
+ return objects;
 },
 
 createNiceSprites: function(element, group){
-  var sprite = group.create(element.x, element.y, element.sprite);
-  Object.keys(element).forEach(function(key){
-      //console.log(element.type);
-      //console.log(element.x);
-      //console.log(element.y);
-      sprite[key] = (element.x, element.y, element.name);
-      console.log(sprite);
-  });
+ var sprite = group.create(element.x, element.y, element.properties.sprite);
+ Object.keys(element.properties).forEach(function(key){
+     sprite[key] = element.properties[key];
+ });
 
 },
+createCollectables: function() {
+   this.collectables = this.add.group();
+   this.collectables.enablebody = true;
+   var cold_objects = this.locateObjects('cold', this.map, 'objectsLayer');
+   var hot_objects = this.locateObjects('hot', this.map, 'objectsLayer');
 
+   cold_objects.forEach(function(element){
+     this.createNiceSprites(element, this.collectables)
+   }, this);
+   hot_objects.forEach(function(element){
+     this.createNiceSprites(element, this.collectables)
+   }, this);
+
+ },
   render: function(){
     this.game.debug.cameraInfo(this.game.camera, 32, 32);
     this.game.debug.text("temperature: " + this.T, 400, 20);
