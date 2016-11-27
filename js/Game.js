@@ -19,7 +19,10 @@ Quantumgator.Game.prototype = {
     this.blockLayer.resizeWorld();
     this.blockLayer.position.set(0, 100);
     this.background.scale.setTo(this.game.world.bounds.width/this.background.width, 1);
-    this.music = this.add.audio('backgroundmusic');
+    this.music1 = this.add.audio('backgroundmusic');
+    this.music = this.add.audio('quantummusic');
+    this.music.mute = true;
+    this.music1.play();
     this.music.play();
 
     //game.T is the current temperature, keep between [0, 20]
@@ -118,10 +121,14 @@ Quantumgator.Game.prototype = {
 
     if (!this.quantum) {
       this.gatorAnimation();
-    } else {
+      this.music1.mute = false;
+      this.music.mute = true;
+          } 
+          if(this.quantum) {
       this.quantumGatorAnimation();
-      this.music = this.add.audio('quantummusic');
-      this.music.play();
+      this.music1.mute = true;
+      this.music.mute = false;
+      
     }
 
     this.game.camera.x = this.player.body.x - 150;
