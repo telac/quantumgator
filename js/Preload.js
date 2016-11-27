@@ -31,6 +31,12 @@ Quantumgator.Preload.prototype = {
     this.load.image('gatorTailTip', 'assets/images/gator/tailtip_quantum.png');
     this.load.image('snowflake', 'assets/images/snowflake.png');
     this.load.image('wallBlackhole', 'assets/images/wall_blackhole.png');
+    this.load.image('qGatorUpperHead', 'assets/images/Quantumcrocodile_Colour/Quantumhead_Top.png');
+    this.load.image('qGatorLowerHead', 'assets/images/Quantumcrocodile_Colour/Quantumhead_Bottom.png');
+    this.load.image('qGatorBody', 'assets/images/Quantumcrocodile_Colour/Quantumbody.png');
+    this.load.image('qGatorFrontLeg', 'assets/images/Quantumcrocodile_Colour/Quantumforearm.png');
+    this.load.image('qGatorBackLeg', 'assets/images/Quantumcrocodile_Colour/Quantumbackleg.png');
+    this.load.image('player', 'assets/images/snowflake.png');
   },
   create: function() {
     this.state.start('Game');

@@ -42,44 +42,14 @@ Quantumgator.Game.prototype = {
       item.alpha = 0;
     });
 
-    this.gatorParts = this.add.group();
-    this.player = this.add.sprite(-200, 280, 'gatorUpperHead');
+    this.player = this.add.sprite(-200, 280, 'player');
+    this.game.physics.arcade.enable(this.player);
+    //this.player = this.add.sprite(-200, 280, 'gatorUpperHead');
     this.player.scale.setTo(0.5, 0.5);
     this.player.anchor.setTo(0.5, 0.5);
-    this.game.physics.arcade.enable(this.player);
-
-    this.gatorParts.create(-125, 0, 'gatorTailTip');
-    this.gatorParts.create(-100, 0, 'gatorTail');
-    this.gatorParts.create(-75, 0, 'gatorTail');
-    this.gatorParts.create(-20, 0, 'gatorBody');
-    this.gatorParts.create(8, 0, 'gatorLowerHead');
-    this.gatorParts.create(-5, 0, 'gatorFrontLeg');
-    this.gatorParts.create(-55, 0, 'gatorBackLeg');
-
-    //tailtip
-    this.gatorParts.children[0].scale.setTo(0.5, 0.3);
-
-    //backtail
-    this.gatorParts.children[1].scale.setTo(0.5, 0.4);
-
-    //fronttail
-    this.gatorParts.children[2].scale.setTo(0.5, 0.5);
-
-    //body
-    this.gatorParts.children[3].scale.setTo(0.5, 0.5);
-    this.gatorParts.children[3].anchor.setTo(0.5, 0.5);
-
-    //jaw
-    this.gatorParts.children[4].scale.setTo(0.5, 0.5);
-    this.gatorParts.children[4].anchor.setTo(0.1, 0.5);
-
-    //frontleg
-    this.gatorParts.children[5].scale.setTo(0.5, 0.5);
-    this.gatorParts.children[5].anchor.setTo(0.75, 0.2);
-
-    //backleg
-    this.gatorParts.children[6].scale.setTo(0.5, 0.5);
-    this.gatorParts.children[6].anchor.setTo(0.6, 0.3);
+    //this.player.alpha = 0;
+    this.createGator();
+    this.createQuantumGator();
 
     //keep between [0, 4]
     this.altitude = 2;
@@ -95,11 +65,11 @@ Quantumgator.Game.prototype = {
     this.upButton.onDown.add(this.playerUp, this);
     this.downButton.onDown.add(this.playerDown, this);
     this.quantumButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
-    // this.lastQuantumState = this.quantum;
+    this.lastQuantumState = this.quantum;
   },
   update: function() {
 
-  if (this.quantumButton.isDown) {
+  if (this.quantumButton.isDown && false) {
     emitter = this.add.emitter(this.world.centerX, 200, 200);
     emitter.width = 800;
     emitter.makeParticles('star');
@@ -110,18 +80,23 @@ Quantumgator.Game.prototype = {
     emitter.setScale(0.5, 0.5, 1, 1);
     emitter.gravity = -200;
     emitter.start(false, 5000, 100);
-    } else {
-    	this.quantum = false;
-
     }
     this.player.body.velocity.x = 300;
     this.passiveHeat();
     this.player.body.velocity.x = this.velocity;
 
-    // if (this.quantumButton.isDown && (this.quantum != this.lastQuantumState)) {
-    //   console.log(this.game.now);
-    //   this.quantum = this.lastQuantumState;
-    // }
+    if (this.quantum != this.lastQuantumState) {
+      if (this.quantum) {
+        this.map.addTilesetImage('tiles_spreadsheet', 'tilesQ');
+        this.quantumGatorParts.visible = true;
+        this.gatorParts.visible = false;
+      } else {
+        this.map.addTilesetImage('tiles_spreadsheet', 'tiles');
+        this.quantumGatorParts.visible = false;
+        this.gatorParts.visible = true;
+      }
+    }
+    this.lastQuantumState = this.quantum;
 
     if (this.quantumButton.isDown) {
       this.quantum = true;
@@ -131,36 +106,52 @@ Quantumgator.Game.prototype = {
 
     this.player.y = 84 + this.altitude*84;
     if(this.quantum == false){
-       var hitwall = this.physics.arcade.collide(this.player, this.blockLayer);
+       if (this.physics.arcade.collide(this.player, this.blockLayer)) {
+         this.gameOver();
+       }
     }
 
-    this.gatorAnimation();
-
-if(this.quantum == false){
-   var hitwall = this.physics.arcade.collide(this.player, this.blockLayer);
-   if (hitwall == true) this.gameOver();
-}
+    if (!this.quantum) {
+      this.gatorAnimation();
+    } else {
+      this.quantumGatorAnimation();
+    }
 
     this.game.camera.x = this.player.body.x - 150;
     this.game.camera.y = this.player.body.y;
     },
 
+  quantumGatorAnimation: function() {
+    freq = 50;
+    this.player.y = 84 + 42 + this.altitude*84 + 6 * Math.sin(this.time.now/freq);
+    this.quantumGatorParts.x = this.player.body.x;
+    this.quantumGatorParts.y = this.player.body.y - 6 * Math.sin(this.time.now/freq);
+    this.quantumGatorParts.children[4].y = 6 * Math.sin(this.time.now/freq);
+    this.quantumGatorParts.children[3].y = 20 + 6 * Math.sin(this.time.now/freq);
+    this.quantumGatorParts.children[3].angle = 10 * Math.sin(this.time.now/100) + 15;
+    this.quantumGatorParts.children[0].y = 20 + 6 * Math.sin((this.time.now-freq)/freq);
+    this.quantumGatorParts.children[1].y = 30 + 6 * Math.sin((this.time.now-freq)/freq);
+    this.quantumGatorParts.children[1].angle = 10 * Math.sin(this.time.now/100);
+    this.quantumGatorParts.children[2].y = 30 + 4 * Math.sin((this.time.now-freq)/freq);
+    this.quantumGatorParts.children[2].angle = 10 * Math.sin(this.time.now/100);
+  },
+
   gatorAnimation: function(){
     freq = 100;
-    this.player.y = 100 + this.altitude*84 + 4 * Math.sin(this.time.now/freq);
+    this.player.y = 84 + 42 + this.altitude*84 + 4 * Math.sin(this.time.now/freq);
     this.gatorParts.x = this.player.body.x;
     this.gatorParts.y = this.player.body.y - 4 * Math.sin(this.time.now/freq);
+    this.gatorParts.children[5].y = 4 * Math.sin(this.time.now/freq);
     this.gatorParts.children[4].y = 20 + 4 * Math.sin(this.time.now/freq);
     this.gatorParts.children[4].angle = 8 * Math.sin(this.time.now/100) + 15;
     this.gatorParts.children[3].y = 20 + 4 * Math.sin((this.time.now-freq)/freq);
-
     this.gatorParts.children[2].y = 5 + 5 * Math.sin((this.time.now-2*freq)/freq);
     this.gatorParts.children[1].y = 10 + 6 * Math.sin((this.time.now-3*freq)/freq);
     this.gatorParts.children[0].y = 15 + 7 * Math.sin((this.time.now-4*freq)/freq);
-    this.gatorParts.children[5].y = 30 + 4 * Math.sin((this.time.now-freq)/freq);
     this.gatorParts.children[6].y = 30 + 4 * Math.sin((this.time.now-freq)/freq);
-    this.gatorParts.children[5].angle = 8 * Math.sin(this.time.now/100);
-    this.gatorParts.children[6].angle = 10 * Math.sin(this.time.now/100);
+    this.gatorParts.children[6].angle = 8 * Math.sin(this.time.now/100);
+    this.gatorParts.children[7].y = 30 + 4 * Math.sin((this.time.now-freq)/freq);
+    this.gatorParts.children[7].angle = 10 * Math.sin(this.time.now/100);
   },
 
   createEmitter: function(){
@@ -196,6 +187,79 @@ if(this.quantum == false){
   createCollectables: function() {
 
   },
+
+  createGator: function(){
+    this.gatorParts = this.add.group();
+
+    this.gatorParts.create(-125, 0, 'gatorTailTip');
+    this.gatorParts.create(-100, 0, 'gatorTail');
+    this.gatorParts.create(-75, 0, 'gatorTail');
+    this.gatorParts.create(-20, 0, 'gatorBody');
+    this.gatorParts.create(8, 0, 'gatorLowerHead');
+    this.gatorParts.create(0, 0, 'gatorUpperHead');
+    this.gatorParts.create(-5, 0, 'gatorFrontLeg');
+    this.gatorParts.create(-55, 0, 'gatorBackLeg');
+
+    //tailtip
+    this.gatorParts.children[0].scale.setTo(0.5, 0.3);
+
+    //backtail
+    this.gatorParts.children[1].scale.setTo(0.5, 0.4);
+
+    //fronttail
+    this.gatorParts.children[2].scale.setTo(0.5, 0.5);
+
+    //body
+    this.gatorParts.children[3].scale.setTo(0.5, 0.5);
+    this.gatorParts.children[3].anchor.setTo(0.5, 0.5);
+
+    //lower jaw
+    this.gatorParts.children[4].scale.setTo(0.5, 0.5);
+    this.gatorParts.children[4].anchor.setTo(0.1, 0.5);
+
+    //upper jaw
+    this.gatorParts.children[5].scale.setTo(0.5, 0.5);
+
+    //frontleg
+    this.gatorParts.children[6].scale.setTo(0.5, 0.5);
+    this.gatorParts.children[6].anchor.setTo(0.75, 0.2);
+
+    //backleg
+    this.gatorParts.children[7].scale.setTo(0.5, 0.5);
+    this.gatorParts.children[7].anchor.setTo(0.6, 0.3);
+  },
+
+  createQuantumGator: function(){
+    this.quantumGatorParts = this.add.group();
+
+    this.quantumGatorParts.create(-20, 100, 'qGatorBody');
+    this.quantumGatorParts.create(-5, 100, 'qGatorFrontLeg');
+    this.quantumGatorParts.create(-55, 100, 'qGatorBackLeg');
+    this.quantumGatorParts.create(8, 100, 'qGatorLowerHead');
+    this.quantumGatorParts.create(0, 0, 'qGatorUpperHead');
+
+    //body
+    this.quantumGatorParts.children[0].scale.setTo(0.5, 0.5);
+    this.quantumGatorParts.children[0].anchor.setTo(0.5, 0.5);
+
+    //frontleg
+    this.quantumGatorParts.children[1].scale.setTo(0.5, 0.5);
+    this.quantumGatorParts.children[1].anchor.setTo(0.5, 0.33);
+
+    //backleg
+    this.quantumGatorParts.children[2].scale.setTo(0.5, 0.5);
+    this.quantumGatorParts.children[2].anchor.setTo(0.5, 0.33);
+
+    //lower jaw
+    this.quantumGatorParts.children[3].scale.setTo(1, 1);
+    this.quantumGatorParts.children[3].anchor.setTo(0.1, 0.5);
+
+    //upper jaw
+    this.quantumGatorParts.children[4].scale.setTo(1, 0.75);
+
+    this.quantumGatorParts.visible = false;
+  },
+
   //declare game over
   gameOver: function(){
     this.velocity = 0;
