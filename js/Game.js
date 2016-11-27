@@ -327,7 +327,7 @@ Quantumgator.Game.prototype = {
     this.velocity = 0;
     this.music.stop();
     this.music1.stop();
-    this.game.state.start('Game');
+    this.game.state.start('gameover');
   },
 
   resetPosition: function () {
