@@ -160,6 +160,7 @@ Quantumgator.Game.prototype = {
     this.game.physics.arcade.overlap(this.player, this.collectables, this.collect, null, this);
 
     this.emitter.x = this.player.x + 500;
+    this.emitter.y = 0;
 
     if (this.player.x > this.game.world.bounds.width) {
       this.resetPosition();
@@ -229,8 +230,8 @@ Quantumgator.Game.prototype = {
     this.emitter.setRotation(0, 0);
     this.emitter.setAlpha(0.3, 0.8);
     this.emitter.setScale(0.5, 0.5, 1, 1);
-    this.emitter.gravity = -500;
-    this.emitter.start(false, 5000, 10);
+    this.emitter.gravity = -100;
+    this.emitter.start(false, 5000, 50);
     this.emitter.on = false;
   },
 
